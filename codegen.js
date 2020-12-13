@@ -8,7 +8,7 @@ module.exports = {
       },
     },
   ],
-  documents: ["./graphql/**/*.ts"],
+  documents: ["./**/*.ts", "./**/*.tsx", "!__generated__", "!node_modules"],
   overwrite: true,
   generates: {
     "./__generated__/graphqlTypes.ts": {
