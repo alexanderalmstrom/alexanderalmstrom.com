@@ -1,9 +1,12 @@
+const space = process.env.CONTENTFUL_SPACE_ID;
+const token = process.env.CONTENTFUL_ACCESS_TOKEN;
+
 module.exports = {
   schema: [
     {
-      [`https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`]: {
+      [`https://graphql.contentful.com/content/v1/spaces/${space}`]: {
         headers: {
-          Authorization: `Bearer ${process.env.CONTENTFUL_ACCESS_TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       },
     },
