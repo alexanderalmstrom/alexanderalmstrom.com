@@ -10,18 +10,28 @@ import isEqual from "lodash/isEqual";
 
 export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
 
+const isBrowser = typeof window !== "undefined";
+
+const space = process.env.CONTENTFUL_SPACE_ID;
+
+const token = process.env.CONTENTFUL_ACCESS_TOKEN;
+
 let apolloClient: ApolloClient<NormalizedCacheObject>;
+
+const link = new HttpLink({
+  uri: `https://graphql.contentful.com/content/v1/spaces/${space}`, // Server URL (must be absolute)
+  headers: {
+    authorization: `Bearer ${token}`,
+  },
+});
+
+const cache = new InMemoryCache();
 
 function createApolloClient(): ApolloClient<NormalizedCacheObject> {
   return new ApolloClient({
-    ssrMode: typeof window === "undefined",
-    link: new HttpLink({
-      uri: `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`, // Server URL (must be absolute)
-      headers: {
-        authorization: `Bearer ${process.env.CONTENTFUL_ACCESS_TOKEN}`,
-      },
-    }),
-    cache: new InMemoryCache(),
+    link,
+    cache,
+    ssrMode: !isBrowser,
   });
 }
 
@@ -50,8 +60,10 @@ export function initializeApollo(
     // Restore the cache with the merged data
     _apolloClient.cache.restore(data);
   }
+
   // For SSG and SSR always create a new Apollo Client
   if (typeof window === "undefined") return _apolloClient;
+
   // Create the Apollo Client once in the client
   if (!apolloClient) apolloClient = _apolloClient;
 
@@ -72,5 +84,6 @@ export function addApolloState(
 export function useApollo(pageProps: { [x: string]: any }) {
   const state = pageProps[APOLLO_STATE_PROP_NAME];
   const store = useMemo(() => initializeApollo(state), [state]);
+
   return store;
 }
