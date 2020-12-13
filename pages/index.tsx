@@ -1,25 +1,10 @@
 import { GetStaticProps } from "next";
 import { gql } from "@apollo/client";
-import { Sys } from "contentful";
 import { addApolloState, initializeApollo } from "../lib/apolloClient";
+import { Projects } from "../lib/interfaces/projects";
 
 interface Props {
   projects: Projects;
-}
-
-interface Projects {
-  projectCollection: ProjectCollection;
-}
-
-interface ProjectCollection {
-  items: ProjectCollectionItems[];
-}
-
-interface ProjectCollectionItems {
-  sys: Sys;
-  name: string;
-  slug: string;
-  text: string;
 }
 
 const Home = ({ projects }: Props) => {
