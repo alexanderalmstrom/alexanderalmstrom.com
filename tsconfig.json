@@ -1,5 +1,13 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@generated/*": ["__generated__/*"],
+      "@lib/*": ["lib/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@graphql/*": ["graphql/*"],
+      "@assets/*": ["assets/*"]
+    },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
