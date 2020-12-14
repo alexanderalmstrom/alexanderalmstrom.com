@@ -1,8 +1,8 @@
 import styles from "@assets/page.module.scss";
 import { GetStaticPaths, GetStaticProps } from "next";
 import ReactMarkdown from "react-markdown";
-import { addApolloState, initializeApollo } from "@lib/apolloClient";
 import { Page } from "@generated/graphqlTypes";
+import { addApolloState, initializeApollo } from "@lib/apolloClient";
 import { Pages } from "@interfaces/pages";
 import { GET_PAGES, GET_PAGE } from "@graphql/pages";
 
@@ -24,11 +24,11 @@ export default PageBySlug;
 export const getStaticPaths: GetStaticPaths = async () => {
   const apolloClient = initializeApollo();
 
-  const { data: pages } = await apolloClient.query<Pages>({
+  const { data } = await apolloClient.query<Pages>({
     query: GET_PAGES,
   });
 
-  const paths = pages.pageCollection.items.map(({ slug }) => ({
+  const paths = data.pageCollection.items.map(({ slug }) => ({
     params: { slug },
   }));
 

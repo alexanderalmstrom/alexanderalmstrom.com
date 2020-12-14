@@ -7,21 +7,17 @@ import {
 } from "@apollo/client";
 import merge from "deepmerge";
 import isEqual from "lodash/isEqual";
+import { CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_SPACE_ID } from "@lib/constants";
+import { isBrowser } from "@lib/utils";
 
 export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
-
-const isBrowser = typeof window !== "undefined";
-
-const space = process.env.CONTENTFUL_SPACE_ID;
-
-const token = process.env.CONTENTFUL_ACCESS_TOKEN;
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 const link = new HttpLink({
-  uri: `https://graphql.contentful.com/content/v1/spaces/${space}`, // Server URL (must be absolute)
+  uri: `https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE_ID}`, // Server URL (must be absolute)
   headers: {
-    authorization: `Bearer ${token}`,
+    authorization: `Bearer ${CONTENTFUL_ACCESS_TOKEN}`,
   },
 });
 
@@ -62,7 +58,7 @@ export function initializeApollo(
   }
 
   // For SSG and SSR always create a new Apollo Client
-  if (typeof window === "undefined") return _apolloClient;
+  if (!isBrowser) return _apolloClient;
 
   // Create the Apollo Client once in the client
   if (!apolloClient) apolloClient = _apolloClient;

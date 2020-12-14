@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next";
-import { addApolloState, initializeApollo } from "../lib/apolloClient";
-import { Projects } from "../interfaces/projects";
-import { GET_PROJECTS } from "../graphql/projects";
+import { Projects } from "@interfaces/projects";
+import { addApolloState, initializeApollo } from "@lib/apolloClient";
+import { GET_PROJECTS } from "@graphql/projects";
 
 interface Props {
   projects: Projects;
@@ -22,7 +22,7 @@ export default Home;
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo();
 
-  const { data: projects } = await apolloClient.query({
+  const { data: projects } = await apolloClient.query<Projects>({
     query: GET_PROJECTS,
   });
 
