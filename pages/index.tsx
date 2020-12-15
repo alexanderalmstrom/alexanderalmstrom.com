@@ -1,35 +1,22 @@
-import { GetStaticProps } from "next";
-import { Projects } from "@interfaces/projects";
-import { addApolloState, initializeApollo } from "@lib/apolloClient";
-import { GET_PROJECTS } from "@graphql/projects";
+import styles from "@styles/pages/Home.module.scss";
+import { title, description } from "@config/seo.json";
+import Layout from "@components/Layout";
+import Header from "@components/Header";
+import Logo from "../assets/logo.svg";
 
-interface Props {
-  projects: Projects;
-}
+interface Props {}
 
-const Home = ({ projects }: Props) => {
+const Home = ({}: Props) => {
   return (
-    <div>
-      {projects.projectCollection.items.map((project) => (
-        <div key={project.sys.id}>{project.name}</div>
-      ))}
-    </div>
+    <Layout>
+      <Header />
+      <div className={styles.container}>
+        <Logo className={styles.logo} />
+        <h1 className={styles.title}>{title}</h1>
+        <p className={styles.description}>{description}</p>
+      </div>
+    </Layout>
   );
 };
 
 export default Home;
-
-export const getStaticProps: GetStaticProps = async () => {
-  const apolloClient = initializeApollo();
-
-  const { data: projects } = await apolloClient.query<Projects>({
-    query: GET_PROJECTS,
-  });
-
-  return addApolloState(apolloClient, {
-    props: {
-      projects,
-    },
-    revalidate: 1,
-  });
-};

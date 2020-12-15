@@ -3,10 +3,12 @@
     "baseUrl": ".",
     "paths": {
       "@generated/*": ["__generated__/*"],
+      "@config/*": ["config/*"],
       "@lib/*": ["lib/*"],
       "@interfaces/*": ["interfaces/*"],
       "@graphql/*": ["graphql/*"],
-      "@assets/*": ["assets/*"]
+      "@styles/*": ["styles/*"],
+      "@components/*": ["components/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -22,6 +24,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "./custom.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "__generated__"]
 }

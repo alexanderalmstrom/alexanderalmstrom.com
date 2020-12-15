@@ -1,10 +1,11 @@
-import styles from "@assets/page.module.scss";
+import styles from "@styles/pages/Page.module.scss";
 import { GetStaticPaths, GetStaticProps } from "next";
 import ReactMarkdown from "react-markdown";
 import { Page } from "@generated/graphqlTypes";
 import { addApolloState, initializeApollo } from "@lib/apolloClient";
 import { Pages } from "@interfaces/pages";
 import { GET_PAGES, GET_PAGE } from "@graphql/pages";
+import Layout from "@components/Layout";
 
 interface Props {
   page: Page;
@@ -12,10 +13,12 @@ interface Props {
 
 const PageBySlug = ({ page }: Props) => {
   return (
-    <div className={styles.root}>
-      <h1>{page.name}</h1>
-      <ReactMarkdown>{page.text}</ReactMarkdown>
-    </div>
+    <Layout title={page.name}>
+      <div className={styles.root}>
+        <h1>{page.name}</h1>
+        <ReactMarkdown>{page.text}</ReactMarkdown>
+      </div>
+    </Layout>
   );
 };
 
