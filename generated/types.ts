@@ -1032,30 +1032,33 @@ export enum ProjectOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
-export type AssetFragment = (
+export type ContentfulAssetFragment = (
   { __typename?: 'Asset' }
-  & Pick<Asset, 'url' | 'title'>
+  & Pick<Asset, 'url' | 'title' | 'contentType'>
   & { sys: (
     { __typename?: 'Sys' }
     & Pick<Sys, 'id'>
   ) }
 );
 
-export type BlockFragment = (
+export type ContentfulBlocksFragment = (
   { __typename?: 'Block' }
-  & { componentsCollection?: Maybe<(
+  & { sys: (
+    { __typename?: 'Sys' }
+    & Pick<Sys, 'id'>
+  ), componentsCollection?: Maybe<(
     { __typename?: 'BlockComponentsCollection' }
     & { items: Array<Maybe<(
       { __typename?: 'Media' }
-      & MediaFragment
+      & ContentfulMediaFragment
     ) | (
       { __typename?: 'Text' }
-      & TextFragment
+      & ContentfulTextFragment
     )>> }
   )> }
 );
 
-export type MediaFragment = (
+export type ContentfulMediaFragment = (
   { __typename?: 'Media' }
   & Pick<Media, 'size'>
   & { sys: (
@@ -1070,12 +1073,12 @@ export type MediaFragment = (
         { __typename?: 'Sys' }
         & Pick<Sys, 'id'>
       ) }
-      & AssetFragment
+      & ContentfulAssetFragment
     )>> }
   )> }
 );
 
-export type PageFragment = (
+export type ContentfulPageFragment = (
   { __typename?: 'Page' }
   & Pick<Page, 'name' | 'slug' | 'title' | 'description' | 'text'>
   & { sys: (
@@ -1088,11 +1091,7 @@ export type PageFragment = (
     { __typename?: 'PageBlocksCollection' }
     & { items: Array<Maybe<(
       { __typename?: 'Block' }
-      & { sys: (
-        { __typename?: 'Sys' }
-        & Pick<Sys, 'id'>
-      ) }
-      & BlockFragment
+      & ContentfulBlocksFragment
     )>> }
   )> }
 );
@@ -1106,7 +1105,7 @@ export type GetPagesQuery = (
     { __typename?: 'PageCollection' }
     & { items: Array<Maybe<(
       { __typename?: 'Page' }
-      & PageFragment
+      & ContentfulPageFragment
     )>> }
   )> }
 );
@@ -1122,7 +1121,7 @@ export type GetPageQuery = (
     { __typename?: 'PageCollection' }
     & { items: Array<Maybe<(
       { __typename?: 'Page' }
-      & PageFragment
+      & ContentfulPageFragment
     )>> }
   )> }
 );
@@ -1145,7 +1144,7 @@ export type GetProjectsQuery = (
   )> }
 );
 
-export type TextFragment = (
+export type ContentfulTextFragment = (
   { __typename?: 'Text' }
   & Pick<Text, 'text' | 'size'>
   & { sys: (
@@ -1154,8 +1153,8 @@ export type TextFragment = (
   ) }
 );
 
-export const TextFragmentDoc = gql`
-    fragment Text on Text {
+export const ContentfulTextFragmentDoc = gql`
+    fragment ContentfulText on Text {
   sys {
     id
   }
@@ -1163,17 +1162,18 @@ export const TextFragmentDoc = gql`
   size
 }
     `;
-export const AssetFragmentDoc = gql`
-    fragment Asset on Asset {
+export const ContentfulAssetFragmentDoc = gql`
+    fragment ContentfulAsset on Asset {
   sys {
     id
   }
   url
   title
+  contentType
 }
     `;
-export const MediaFragmentDoc = gql`
-    fragment Media on Media {
+export const ContentfulMediaFragmentDoc = gql`
+    fragment ContentfulMedia on Media {
   sys {
     id
   }
@@ -1185,25 +1185,28 @@ export const MediaFragmentDoc = gql`
       }
       url
       ... on Asset {
-        ...Asset
+        ...ContentfulAsset
       }
     }
   }
 }
-    ${AssetFragmentDoc}`;
-export const BlockFragmentDoc = gql`
-    fragment Block on Block {
+    ${ContentfulAssetFragmentDoc}`;
+export const ContentfulBlocksFragmentDoc = gql`
+    fragment ContentfulBlocks on Block {
+  sys {
+    id
+  }
   componentsCollection(limit: 2) {
     items {
-      ...Text
-      ...Media
+      ...ContentfulText
+      ...ContentfulMedia
     }
   }
 }
-    ${TextFragmentDoc}
-${MediaFragmentDoc}`;
-export const PageFragmentDoc = gql`
-    fragment Page on Page {
+    ${ContentfulTextFragmentDoc}
+${ContentfulMediaFragmentDoc}`;
+export const ContentfulPageFragmentDoc = gql`
+    fragment ContentfulPage on Page {
   sys {
     id
   }
@@ -1218,23 +1221,20 @@ export const PageFragmentDoc = gql`
   }
   blocksCollection(limit: 10) {
     items {
-      sys {
-        id
-      }
-      ...Block
+      ...ContentfulBlocks
     }
   }
 }
-    ${BlockFragmentDoc}`;
+    ${ContentfulBlocksFragmentDoc}`;
 export const GetPagesDocument = gql`
     query GetPages {
   pageCollection {
     items {
-      ...Page
+      ...ContentfulPage
     }
   }
 }
-    ${PageFragmentDoc}`;
+    ${ContentfulPageFragmentDoc}`;
 
 /**
  * __useGetPagesQuery__
@@ -1264,11 +1264,11 @@ export const GetPageDocument = gql`
     query GetPage($slug: String!) {
   pageCollection(where: {slug: $slug}) {
     items {
-      ...Page
+      ...ContentfulPage
     }
   }
 }
-    ${PageFragmentDoc}`;
+    ${ContentfulPageFragmentDoc}`;
 
 /**
  * __useGetPageQuery__

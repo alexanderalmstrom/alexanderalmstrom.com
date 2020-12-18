@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
-import { ASSET } from "./asset";
+import { ContentfulAsset } from "./asset";
 
-export const MEDIA = gql`
-  fragment Media on Media {
+export const ContentfulMedia = gql`
+  fragment ContentfulMedia on Media {
     sys {
       id
     }
@@ -14,11 +14,11 @@ export const MEDIA = gql`
         }
         url
         ... on Asset {
-          ...Asset
+          ...ContentfulAsset
         }
       }
     }
   }
 
-  ${ASSET}
+  ${ContentfulAsset}
 `;

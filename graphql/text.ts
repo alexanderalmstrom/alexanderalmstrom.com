@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const TEXT = gql`
-  fragment Text on Text {
+export const ContentfulText = gql`
+  fragment ContentfulText on Text {
     sys {
       id
     }

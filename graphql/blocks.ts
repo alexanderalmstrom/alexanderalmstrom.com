@@ -1,17 +1,20 @@
 import { gql } from "@apollo/client";
-import { MEDIA } from "./media";
-import { TEXT } from "./text";
+import { ContentfulMedia } from "./media";
+import { ContentfulText } from "./text";
 
-export const BLOCKS = gql`
-  fragment Block on Block {
+export const ContentfulBlocks = gql`
+  fragment ContentfulBlocks on Block {
+    sys {
+      id
+    }
     componentsCollection(limit: 2) {
       items {
-        ...Text
-        ...Media
+        ...ContentfulText
+        ...ContentfulMedia
       }
     }
   }
 
-  ${TEXT}
-  ${MEDIA}
+  ${ContentfulText}
+  ${ContentfulMedia}
 `;

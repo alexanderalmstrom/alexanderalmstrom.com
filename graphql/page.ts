@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
-import { BLOCKS } from "./blocks";
+import { ContentfulBlocks } from "./blocks";
 
-export const PAGE = gql`
-  fragment Page on Page {
+export const ContentfulPage = gql`
+  fragment ContentfulPage on Page {
     sys {
       id
     }
@@ -17,13 +17,10 @@ export const PAGE = gql`
     }
     blocksCollection(limit: 10) {
       items {
-        sys {
-          id
-        }
-        ...Block
+        ...ContentfulBlocks
       }
     }
   }
 
-  ${BLOCKS}
+  ${ContentfulBlocks}
 `;

@@ -1,27 +1,26 @@
 import { gql } from "@apollo/client";
-import { BLOCKS } from "./blocks";
-import { PAGE } from "./page";
+import { ContentfulPage } from "./page";
 
 export const GET_PAGES = gql`
   query GetPages {
     pageCollection {
       items {
-        ...Page
+        ...ContentfulPage
       }
     }
   }
 
-  ${PAGE}
+  ${ContentfulPage}
 `;
 
 export const GET_PAGE = gql`
   query GetPage($slug: String!) {
     pageCollection(where: { slug: $slug }) {
       items {
-        ...Page
+        ...ContentfulPage
       }
     }
   }
 
-  ${PAGE}
+  ${ContentfulPage}
 `;
