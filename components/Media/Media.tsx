@@ -1,8 +1,14 @@
-import { Media } from "@generated/types";
 import React from "react";
+import styles from "./Media.module.scss";
+import classNames from "classnames";
+import { Media } from "@generated/types";
 
-const MediaComponent = ({ mediaCollection }: Media) => (
-  <div>
+const MediaComponent = ({ mediaCollection, size }: Media) => (
+  <div
+    className={classNames(styles.root, {
+      [`col-${size}`]: !!size,
+    })}
+  >
     {mediaCollection.items.map((media) => {
       switch (media.contentType) {
         case "image/jpeg":

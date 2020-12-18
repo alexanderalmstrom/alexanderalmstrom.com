@@ -1,0 +1,41 @@
+@mixin gutter($gutter: $grid-gutter) {
+  padding-left: $gutter;
+  padding-right: $gutter;
+}
+
+@mixin container($container-width: $grid-width) {
+  width: 100%;
+  max-width: $container-width;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@mixin col($size, $gutter: $grid-gutter) {
+  @include gutter($gutter);
+
+  max-width: ($size / $grid-columns) * 100%;
+}
+
+@mixin fluid-type($minSize, $maxSize, $minWidth, $maxWidth) {
+  $minS: rem($minSize);
+  $maxS: rem($maxSize);
+  $minW: rem(bp($minWidth));
+  $maxW: rem(bp($maxWidth));
+
+  font-size: $minS;
+
+  @media screen and (min-width: $minW) {
+    font-size: calc(
+      #{$minS} + #{strip-unit($maxS - $minS)} * (100vw - #{$minW}) / #{strip-unit(
+          $maxW - $minW
+        )}
+    );
+  }
+
+  @media screen and (min-width: $maxW) {
+    font-size: $maxS;
+  }
+}

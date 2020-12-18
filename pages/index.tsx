@@ -1,7 +1,6 @@
 import styles from "@styles/pages/Home.module.scss";
 import { title, description } from "@config/seo.json";
 import Layout from "@components/Layout";
-import Header from "@components/Header";
 
 interface Props {}
 

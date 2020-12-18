@@ -1,0 +1,8 @@
+@import "../../styles/abstracts";
+
+.root {
+}
+
+.container {
+  @include container;
+}

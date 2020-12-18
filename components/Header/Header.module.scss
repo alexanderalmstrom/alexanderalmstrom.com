@@ -1,4 +1,4 @@
-@import "../../styles/config";
+@import "../../styles/abstracts";
 
 .root {
   position: fixed;
@@ -18,7 +18,7 @@
   height: 2rem;
   min-width: 2rem;
   min-height: 2rem;
-  fill: $white;
+  fill: color("white");
 }
 
 .nav {

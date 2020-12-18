@@ -1,4 +1,4 @@
-@import "../config";
+@import "../abstracts";
 
 .root {
   display: grid;
@@ -15,7 +15,7 @@
 }
 
 .logo {
-  fill: $white;
+  fill: color("white");
   width: 6rem;
   height: 6rem;
   justify-self: center;

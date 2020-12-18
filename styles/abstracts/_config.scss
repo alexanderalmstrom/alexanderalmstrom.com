@@ -1,0 +1,21 @@
+$root-size: 16;
+
+$breakpoints: (
+  "small": 30em,
+  "medium": 48em,
+  "large": 64em,
+  "xlarge": 90em,
+);
+
+$grid-columns: 12;
+$grid-width: 71.25rem;
+$grid-gutter: 1.875rem;
+
+$colors: (
+  "black": (
+    "base": #000000,
+  ),
+  "white": (
+    "base": #ffffff,
+  ),
+);

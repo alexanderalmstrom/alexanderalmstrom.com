@@ -1,0 +1,9 @@
+@for $i from 1 through $grid-columns {
+  .col-#{$i} {
+    @include col($grid-columns);
+
+    @include media(">=large") {
+      @include col($i);
+    }
+  }
+}

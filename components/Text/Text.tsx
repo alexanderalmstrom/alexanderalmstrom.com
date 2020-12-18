@@ -1,10 +1,16 @@
 import React from "react";
-import { Text } from "@generated/types";
+import styles from "./Text.module.scss";
+import classNames from "classnames";
 import ReactMarkdown from "react-markdown";
+import { Text } from "@generated/types";
 
-const TextComponent = (props: Text) => (
-  <div>
-    <ReactMarkdown>{props.text}</ReactMarkdown>
+const TextComponent = ({ text, size }: Text) => (
+  <div
+    className={classNames(styles.root, {
+      [`col-${size}`]: !!size,
+    })}
+  >
+    <ReactMarkdown>{text}</ReactMarkdown>
   </div>
 );
 

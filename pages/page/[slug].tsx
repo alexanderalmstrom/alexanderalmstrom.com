@@ -15,14 +15,14 @@ interface Props {
 const PageBySlug = ({ page }: Props) => {
   return (
     <Layout title={page.title || page.name} description={page.description}>
-      <div className={styles.root}>
+      <article className={styles.root}>
         {page.image && <img src={page.image.url} alt={page.image.title} />}
         <h1>{page.name}</h1>
         <ReactMarkdown>{page.text}</ReactMarkdown>
         {page.blocksCollection.items.map((block) => (
           <Block key={block.sys.id} block={block} />
         ))}
-      </div>
+      </article>
     </Layout>
   );
 };
