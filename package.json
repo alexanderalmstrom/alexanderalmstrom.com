@@ -3,11 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"yarn generate -w\" \"next dev\"",
     "build": "next build",
     "start": "next start",
-    "generate": "graphql-codegen --require dotenv/config --config codegen.js dotenv_config_path=.env.local",
-    "predev": "yarn generate"
+    "generate": "graphql-codegen -r dotenv/config -c codegen.yml dotenv_config_path=.env.local"
   },
   "dependencies": {
     "@apollo/client": "^3.3.6",
@@ -22,11 +21,14 @@
     "sass": "^1.30.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.19.4",
-    "@graphql-codegen/typescript": "^1.19.0",
+    "@graphql-codegen/cli": "1.19.4",
+    "@graphql-codegen/typescript": "1.19.0",
+    "@graphql-codegen/typescript-operations": "1.17.12",
+    "@graphql-codegen/typescript-react-apollo": "2.2.1",
     "@types/node": "^14.14.13",
     "@types/react": "^17.0.0",
     "babel-plugin-inline-react-svg": "^1.1.2",
+    "concurrently": "^5.3.0",
     "dotenv": "^8.2.0",
     "typescript": "^4.1.3"
   }

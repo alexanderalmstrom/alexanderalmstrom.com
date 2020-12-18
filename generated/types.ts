@@ -1,3 +1,5 @@
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -28,10 +30,10 @@ export type Query = {
   __typename?: 'Query';
   asset?: Maybe<Asset>;
   assetCollection?: Maybe<AssetCollection>;
-  project?: Maybe<Project>;
-  projectCollection?: Maybe<ProjectCollection>;
   page?: Maybe<Page>;
   pageCollection?: Maybe<PageCollection>;
+  project?: Maybe<Project>;
+  projectCollection?: Maybe<ProjectCollection>;
 };
 
 
@@ -52,23 +54,6 @@ export type QueryAssetCollectionArgs = {
 };
 
 
-export type QueryProjectArgs = {
-  id: Scalars['String'];
-  preview?: Maybe<Scalars['Boolean']>;
-  locale?: Maybe<Scalars['String']>;
-};
-
-
-export type QueryProjectCollectionArgs = {
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-  preview?: Maybe<Scalars['Boolean']>;
-  locale?: Maybe<Scalars['String']>;
-  where?: Maybe<ProjectFilter>;
-  order?: Maybe<Array<Maybe<ProjectOrder>>>;
-};
-
-
 export type QueryPageArgs = {
   id: Scalars['String'];
   preview?: Maybe<Scalars['Boolean']>;
@@ -83,6 +68,23 @@ export type QueryPageCollectionArgs = {
   locale?: Maybe<Scalars['String']>;
   where?: Maybe<PageFilter>;
   order?: Maybe<Array<Maybe<PageOrder>>>;
+};
+
+
+export type QueryProjectArgs = {
+  id: Scalars['String'];
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryProjectCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+  where?: Maybe<ProjectFilter>;
+  order?: Maybe<Array<Maybe<ProjectOrder>>>;
 };
 
 /** Represents a binary file in a space. An asset can be any file type. */
@@ -223,11 +225,20 @@ export enum ImageFormat {
 export type AssetLinkingCollections = {
   __typename?: 'AssetLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
+  pageCollection?: Maybe<PageCollection>;
   projectCollection?: Maybe<ProjectCollection>;
 };
 
 
 export type AssetLinkingCollectionsEntryCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type AssetLinkingCollectionsPageCollectionArgs = {
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
   preview?: Maybe<Scalars['Boolean']>;
@@ -252,6 +263,69 @@ export type EntryCollection = {
 
 export type Entry = {
   sys: Sys;
+};
+
+export type PageCollection = {
+  __typename?: 'PageCollection';
+  total: Scalars['Int'];
+  skip: Scalars['Int'];
+  limit: Scalars['Int'];
+  items: Array<Maybe<Page>>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
+export type Page = Entry & {
+  __typename?: 'Page';
+  sys: Sys;
+  linkedFrom?: Maybe<PageLinkingCollections>;
+  name?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+  image?: Maybe<Asset>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
+export type PageLinkedFromArgs = {
+  allowedLocales?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
+export type PageNameArgs = {
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
+export type PageSlugArgs = {
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
+export type PageTextArgs = {
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
+export type PageImageArgs = {
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type PageLinkingCollections = {
+  __typename?: 'PageLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type PageLinkingCollectionsEntryCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
 };
 
 export type ProjectCollection = {
@@ -447,6 +521,49 @@ export type AssetCollection = {
   items: Array<Maybe<Asset>>;
 };
 
+export type PageFilter = {
+  sys?: Maybe<SysFilter>;
+  name_exists?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  name_not?: Maybe<Scalars['String']>;
+  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  name_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  name_contains?: Maybe<Scalars['String']>;
+  name_not_contains?: Maybe<Scalars['String']>;
+  slug_exists?: Maybe<Scalars['Boolean']>;
+  slug?: Maybe<Scalars['String']>;
+  slug_not?: Maybe<Scalars['String']>;
+  slug_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  slug_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  slug_contains?: Maybe<Scalars['String']>;
+  slug_not_contains?: Maybe<Scalars['String']>;
+  text_exists?: Maybe<Scalars['Boolean']>;
+  text?: Maybe<Scalars['String']>;
+  text_not?: Maybe<Scalars['String']>;
+  text_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  text_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  text_contains?: Maybe<Scalars['String']>;
+  text_not_contains?: Maybe<Scalars['String']>;
+  image_exists?: Maybe<Scalars['Boolean']>;
+  OR?: Maybe<Array<Maybe<PageFilter>>>;
+  AND?: Maybe<Array<Maybe<PageFilter>>>;
+};
+
+export enum PageOrder {
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
 export type ProjectFilter = {
   sys?: Maybe<SysFilter>;
   name_exists?: Maybe<Scalars['Boolean']>;
@@ -490,99 +607,185 @@ export enum ProjectOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
-/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
-export type Page = Entry & {
-  __typename?: 'Page';
-  sys: Sys;
-  linkedFrom?: Maybe<PageLinkingCollections>;
-  name?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-};
+export type PageFragment = (
+  { __typename?: 'Page' }
+  & Pick<Page, 'name' | 'slug' | 'text'>
+  & { sys: (
+    { __typename?: 'Sys' }
+    & Pick<Sys, 'id'>
+  ), image?: Maybe<(
+    { __typename?: 'Asset' }
+    & Pick<Asset, 'url' | 'title'>
+  )> }
+);
+
+export type GetPagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
-export type PageLinkedFromArgs = {
-  allowedLocales?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
+export type GetPagesQuery = (
+  { __typename?: 'Query' }
+  & { pageCollection?: Maybe<(
+    { __typename?: 'PageCollection' }
+    & { items: Array<Maybe<(
+      { __typename?: 'Page' }
+      & PageFragment
+    )>> }
+  )> }
+);
+
+export type GetPageQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
 
 
-/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
-export type PageNameArgs = {
-  locale?: Maybe<Scalars['String']>;
-};
+export type GetPageQuery = (
+  { __typename?: 'Query' }
+  & { pageCollection?: Maybe<(
+    { __typename?: 'PageCollection' }
+    & { items: Array<Maybe<(
+      { __typename?: 'Page' }
+      & PageFragment
+    )>> }
+  )> }
+);
+
+export type GetProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
-export type PageSlugArgs = {
-  locale?: Maybe<Scalars['String']>;
-};
+export type GetProjectsQuery = (
+  { __typename?: 'Query' }
+  & { projectCollection?: Maybe<(
+    { __typename?: 'ProjectCollection' }
+    & { items: Array<Maybe<(
+      { __typename?: 'Project' }
+      & Pick<Project, 'name' | 'slug' | 'text'>
+      & { sys: (
+        { __typename?: 'Sys' }
+        & Pick<Sys, 'id'>
+      ) }
+    )>> }
+  )> }
+);
 
-
-/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
-export type PageTextArgs = {
-  locale?: Maybe<Scalars['String']>;
-};
-
-export type PageLinkingCollections = {
-  __typename?: 'PageLinkingCollections';
-  entryCollection?: Maybe<EntryCollection>;
-};
-
-
-export type PageLinkingCollectionsEntryCollectionArgs = {
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-  preview?: Maybe<Scalars['Boolean']>;
-  locale?: Maybe<Scalars['String']>;
-};
-
-export type PageFilter = {
-  sys?: Maybe<SysFilter>;
-  name_exists?: Maybe<Scalars['Boolean']>;
-  name?: Maybe<Scalars['String']>;
-  name_not?: Maybe<Scalars['String']>;
-  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  name_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  name_contains?: Maybe<Scalars['String']>;
-  name_not_contains?: Maybe<Scalars['String']>;
-  slug_exists?: Maybe<Scalars['Boolean']>;
-  slug?: Maybe<Scalars['String']>;
-  slug_not?: Maybe<Scalars['String']>;
-  slug_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  slug_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  slug_contains?: Maybe<Scalars['String']>;
-  slug_not_contains?: Maybe<Scalars['String']>;
-  text_exists?: Maybe<Scalars['Boolean']>;
-  text?: Maybe<Scalars['String']>;
-  text_not?: Maybe<Scalars['String']>;
-  text_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  text_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  text_contains?: Maybe<Scalars['String']>;
-  text_not_contains?: Maybe<Scalars['String']>;
-  OR?: Maybe<Array<Maybe<PageFilter>>>;
-  AND?: Maybe<Array<Maybe<PageFilter>>>;
-};
-
-export enum PageOrder {
-  NameAsc = 'name_ASC',
-  NameDesc = 'name_DESC',
-  SlugAsc = 'slug_ASC',
-  SlugDesc = 'slug_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+export const PageFragmentDoc = gql`
+    fragment Page on Page {
+  sys {
+    id
+  }
+  name
+  slug
+  text
+  image {
+    url
+    title
+  }
 }
+    `;
+export const GetPagesDocument = gql`
+    query GetPages {
+  pageCollection {
+    items {
+      ...Page
+    }
+  }
+}
+    ${PageFragmentDoc}`;
 
-export type PageCollection = {
-  __typename?: 'PageCollection';
-  total: Scalars['Int'];
-  skip: Scalars['Int'];
-  limit: Scalars['Int'];
-  items: Array<Maybe<Page>>;
-};
+/**
+ * __useGetPagesQuery__
+ *
+ * To run a query within a React component, call `useGetPagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPagesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetPagesQuery(baseOptions?: Apollo.QueryHookOptions<GetPagesQuery, GetPagesQueryVariables>) {
+        return Apollo.useQuery<GetPagesQuery, GetPagesQueryVariables>(GetPagesDocument, baseOptions);
+      }
+export function useGetPagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPagesQuery, GetPagesQueryVariables>) {
+          return Apollo.useLazyQuery<GetPagesQuery, GetPagesQueryVariables>(GetPagesDocument, baseOptions);
+        }
+export type GetPagesQueryHookResult = ReturnType<typeof useGetPagesQuery>;
+export type GetPagesLazyQueryHookResult = ReturnType<typeof useGetPagesLazyQuery>;
+export type GetPagesQueryResult = Apollo.QueryResult<GetPagesQuery, GetPagesQueryVariables>;
+export const GetPageDocument = gql`
+    query GetPage($slug: String!) {
+  pageCollection(where: {slug: $slug}) {
+    items {
+      ...Page
+    }
+  }
+}
+    ${PageFragmentDoc}`;
+
+/**
+ * __useGetPageQuery__
+ *
+ * To run a query within a React component, call `useGetPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPageQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetPageQuery(baseOptions: Apollo.QueryHookOptions<GetPageQuery, GetPageQueryVariables>) {
+        return Apollo.useQuery<GetPageQuery, GetPageQueryVariables>(GetPageDocument, baseOptions);
+      }
+export function useGetPageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPageQuery, GetPageQueryVariables>) {
+          return Apollo.useLazyQuery<GetPageQuery, GetPageQueryVariables>(GetPageDocument, baseOptions);
+        }
+export type GetPageQueryHookResult = ReturnType<typeof useGetPageQuery>;
+export type GetPageLazyQueryHookResult = ReturnType<typeof useGetPageLazyQuery>;
+export type GetPageQueryResult = Apollo.QueryResult<GetPageQuery, GetPageQueryVariables>;
+export const GetProjectsDocument = gql`
+    query GetProjects {
+  projectCollection {
+    items {
+      sys {
+        id
+      }
+      name
+      slug
+      text
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetProjectsQuery__
+ *
+ * To run a query within a React component, call `useGetProjectsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProjectsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetProjectsQuery(baseOptions?: Apollo.QueryHookOptions<GetProjectsQuery, GetProjectsQueryVariables>) {
+        return Apollo.useQuery<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, baseOptions);
+      }
+export function useGetProjectsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProjectsQuery, GetProjectsQueryVariables>) {
+          return Apollo.useLazyQuery<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, baseOptions);
+        }
+export type GetProjectsQueryHookResult = ReturnType<typeof useGetProjectsQuery>;
+export type GetProjectsLazyQueryHookResult = ReturnType<typeof useGetProjectsLazyQuery>;
+export type GetProjectsQueryResult = Apollo.QueryResult<GetProjectsQuery, GetProjectsQueryVariables>;

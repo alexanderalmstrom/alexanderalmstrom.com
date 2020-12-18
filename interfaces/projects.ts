@@ -1,4 +1,4 @@
-import { ProjectCollection } from "@generated/graphqlTypes";
+import { ProjectCollection } from "@generated/types";
 
 export interface Projects {
   projectCollection: ProjectCollection;

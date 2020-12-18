@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@generated/*": ["__generated__/*"],
+      "@generated/*": ["generated/*"],
       "@config/*": ["config/*"],
       "@lib/*": ["lib/*"],
       "@interfaces/*": ["interfaces/*"],

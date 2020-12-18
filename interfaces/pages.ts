@@ -1,4 +1,4 @@
-import { PageCollection } from "@generated/graphqlTypes";
+import { PageCollection } from "@generated/types";
 
 export interface Pages {
   pageCollection: PageCollection;

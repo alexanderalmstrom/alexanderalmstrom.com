@@ -8,6 +8,10 @@ export const PAGE = gql`
     name
     slug
     text
+    image {
+      url
+      title
+    }
   }
 `;
 

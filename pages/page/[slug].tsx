@@ -1,7 +1,7 @@
 import styles from "@styles/pages/Page.module.scss";
 import { GetStaticPaths, GetStaticProps } from "next";
 import ReactMarkdown from "react-markdown";
-import { Page } from "@generated/graphqlTypes";
+import { Page } from "@generated/types";
 import { addApolloState, initializeApollo } from "@lib/apolloClient";
 import { Pages } from "@interfaces/pages";
 import { GET_PAGES, GET_PAGE } from "@graphql/pages";
@@ -15,6 +15,7 @@ const PageBySlug = ({ page }: Props) => {
   return (
     <Layout title={page.name}>
       <div className={styles.root}>
+        {page.image && <img src={page.image.url} alt={page.image.title} />}
         <h1>{page.name}</h1>
         <ReactMarkdown>{page.text}</ReactMarkdown>
       </div>
