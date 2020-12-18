@@ -13,7 +13,7 @@ interface Props {
 
 const PageBySlug = ({ page }: Props) => {
   return (
-    <Layout title={page.name}>
+    <Layout title={page.name} description={page.description}>
       <div className={styles.root}>
         {page.image && <img src={page.image.url} alt={page.image.title} />}
         <h1>{page.name}</h1>
