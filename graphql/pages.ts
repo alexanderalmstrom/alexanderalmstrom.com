@@ -1,19 +1,6 @@
 import { gql } from "@apollo/client";
-
-export const PAGE = gql`
-  fragment Page on Page {
-    sys {
-      id
-    }
-    name
-    slug
-    text
-    image {
-      url
-      title
-    }
-  }
-`;
+import { BLOCKS } from "./blocks";
+import { PAGE } from "./page";
 
 export const GET_PAGES = gql`
   query GetPages {

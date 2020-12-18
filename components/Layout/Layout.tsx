@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { title, description } from "@config/seo.json";
+import Header from "@components/Header";
 
 interface Props {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ const Layout = ({ children, ...props }: Props) => {
         <meta name="description" content={props.description || description} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Header />
       <main>{children}</main>
     </>
   );

@@ -18,6 +18,13 @@ const PageBySlug = ({ page }: Props) => {
         {page.image && <img src={page.image.url} alt={page.image.title} />}
         <h1>{page.name}</h1>
         <ReactMarkdown>{page.text}</ReactMarkdown>
+        {page.blocksCollection.items.map((block) => {
+          return (
+            <div key={block.sys.id}>
+              {JSON.stringify(block.componentsCollection.items, null, 2)}
+            </div>
+          );
+        })}
       </div>
     </Layout>
   );

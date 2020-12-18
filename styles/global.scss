@@ -1,5 +1,9 @@
 @import "./config.scss";
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -36,4 +40,13 @@ p {
   line-height: 1.7;
   margin-top: 0;
   margin-bottom: 2rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+nav a {
+  text-decoration: none;
 }

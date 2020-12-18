@@ -30,8 +30,14 @@ export type Query = {
   __typename?: 'Query';
   asset?: Maybe<Asset>;
   assetCollection?: Maybe<AssetCollection>;
+  media?: Maybe<Media>;
+  mediaCollection?: Maybe<MediaCollection>;
   page?: Maybe<Page>;
   pageCollection?: Maybe<PageCollection>;
+  block?: Maybe<Block>;
+  blockCollection?: Maybe<BlockCollection>;
+  text?: Maybe<Text>;
+  textCollection?: Maybe<TextCollection>;
   project?: Maybe<Project>;
   projectCollection?: Maybe<ProjectCollection>;
 };
@@ -54,6 +60,23 @@ export type QueryAssetCollectionArgs = {
 };
 
 
+export type QueryMediaArgs = {
+  id: Scalars['String'];
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryMediaCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+  where?: Maybe<MediaFilter>;
+  order?: Maybe<Array<Maybe<MediaOrder>>>;
+};
+
+
 export type QueryPageArgs = {
   id: Scalars['String'];
   preview?: Maybe<Scalars['Boolean']>;
@@ -68,6 +91,40 @@ export type QueryPageCollectionArgs = {
   locale?: Maybe<Scalars['String']>;
   where?: Maybe<PageFilter>;
   order?: Maybe<Array<Maybe<PageOrder>>>;
+};
+
+
+export type QueryBlockArgs = {
+  id: Scalars['String'];
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryBlockCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+  where?: Maybe<BlockFilter>;
+  order?: Maybe<Array<Maybe<BlockOrder>>>;
+};
+
+
+export type QueryTextArgs = {
+  id: Scalars['String'];
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryTextCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+  where?: Maybe<TextFilter>;
+  order?: Maybe<Array<Maybe<TextOrder>>>;
 };
 
 
@@ -225,12 +282,21 @@ export enum ImageFormat {
 export type AssetLinkingCollections = {
   __typename?: 'AssetLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
+  mediaCollection?: Maybe<MediaCollection>;
   pageCollection?: Maybe<PageCollection>;
   projectCollection?: Maybe<ProjectCollection>;
 };
 
 
 export type AssetLinkingCollectionsEntryCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type AssetLinkingCollectionsMediaCollectionArgs = {
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
   preview?: Maybe<Scalars['Boolean']>;
@@ -265,6 +331,133 @@ export type Entry = {
   sys: Sys;
 };
 
+export type MediaCollection = {
+  __typename?: 'MediaCollection';
+  total: Scalars['Int'];
+  skip: Scalars['Int'];
+  limit: Scalars['Int'];
+  items: Array<Maybe<Media>>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/media) */
+export type Media = Entry & {
+  __typename?: 'Media';
+  sys: Sys;
+  linkedFrom?: Maybe<MediaLinkingCollections>;
+  name?: Maybe<Scalars['String']>;
+  mediaCollection?: Maybe<AssetCollection>;
+  size?: Maybe<Scalars['Int']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/media) */
+export type MediaLinkedFromArgs = {
+  allowedLocales?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/media) */
+export type MediaNameArgs = {
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/media) */
+export type MediaMediaCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/media) */
+export type MediaSizeArgs = {
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type MediaLinkingCollections = {
+  __typename?: 'MediaLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+  blockCollection?: Maybe<BlockCollection>;
+};
+
+
+export type MediaLinkingCollectionsEntryCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type MediaLinkingCollectionsBlockCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type BlockCollection = {
+  __typename?: 'BlockCollection';
+  total: Scalars['Int'];
+  skip: Scalars['Int'];
+  limit: Scalars['Int'];
+  items: Array<Maybe<Block>>;
+};
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/block) */
+export type Block = Entry & {
+  __typename?: 'Block';
+  sys: Sys;
+  linkedFrom?: Maybe<BlockLinkingCollections>;
+  name?: Maybe<Scalars['String']>;
+  componentsCollection?: Maybe<BlockComponentsCollection>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/block) */
+export type BlockLinkedFromArgs = {
+  allowedLocales?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/block) */
+export type BlockNameArgs = {
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/block) */
+export type BlockComponentsCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type BlockLinkingCollections = {
+  __typename?: 'BlockLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+  pageCollection?: Maybe<PageCollection>;
+};
+
+
+export type BlockLinkingCollectionsEntryCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type BlockLinkingCollectionsPageCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
 export type PageCollection = {
   __typename?: 'PageCollection';
   total: Scalars['Int'];
@@ -280,8 +473,11 @@ export type Page = Entry & {
   linkedFrom?: Maybe<PageLinkingCollections>;
   name?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   text?: Maybe<Scalars['String']>;
   image?: Maybe<Asset>;
+  blocksCollection?: Maybe<PageBlocksCollection>;
 };
 
 
@@ -304,6 +500,18 @@ export type PageSlugArgs = {
 
 
 /** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
+export type PageTitleArgs = {
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
+export type PageDescriptionArgs = {
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
 export type PageTextArgs = {
   locale?: Maybe<Scalars['String']>;
 };
@@ -311,6 +519,15 @@ export type PageTextArgs = {
 
 /** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
 export type PageImageArgs = {
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/page) */
+export type PageBlocksCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
   preview?: Maybe<Scalars['Boolean']>;
   locale?: Maybe<Scalars['String']>;
 };
@@ -326,6 +543,88 @@ export type PageLinkingCollectionsEntryCollectionArgs = {
   limit?: Maybe<Scalars['Int']>;
   preview?: Maybe<Scalars['Boolean']>;
   locale?: Maybe<Scalars['String']>;
+};
+
+export type PageBlocksCollection = {
+  __typename?: 'PageBlocksCollection';
+  total: Scalars['Int'];
+  skip: Scalars['Int'];
+  limit: Scalars['Int'];
+  items: Array<Maybe<Block>>;
+};
+
+export type BlockComponentsCollection = {
+  __typename?: 'BlockComponentsCollection';
+  total: Scalars['Int'];
+  skip: Scalars['Int'];
+  limit: Scalars['Int'];
+  items: Array<Maybe<BlockComponentsItem>>;
+};
+
+export type BlockComponentsItem = Media | Text;
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/text) */
+export type Text = Entry & {
+  __typename?: 'Text';
+  sys: Sys;
+  linkedFrom?: Maybe<TextLinkingCollections>;
+  name?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Int']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/text) */
+export type TextLinkedFromArgs = {
+  allowedLocales?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/text) */
+export type TextNameArgs = {
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/text) */
+export type TextTextArgs = {
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/sqmd9u8rhbqy/content_types/text) */
+export type TextSizeArgs = {
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type TextLinkingCollections = {
+  __typename?: 'TextLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+  blockCollection?: Maybe<BlockCollection>;
+};
+
+
+export type TextLinkingCollectionsEntryCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type TextLinkingCollectionsBlockCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type AssetCollection = {
+  __typename?: 'AssetCollection';
+  total: Scalars['Int'];
+  skip: Scalars['Int'];
+  limit: Scalars['Int'];
+  items: Array<Maybe<Asset>>;
 };
 
 export type ProjectCollection = {
@@ -513,13 +812,43 @@ export enum AssetOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
-export type AssetCollection = {
-  __typename?: 'AssetCollection';
-  total: Scalars['Int'];
-  skip: Scalars['Int'];
-  limit: Scalars['Int'];
-  items: Array<Maybe<Asset>>;
+export type MediaFilter = {
+  sys?: Maybe<SysFilter>;
+  name_exists?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  name_not?: Maybe<Scalars['String']>;
+  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  name_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  name_contains?: Maybe<Scalars['String']>;
+  name_not_contains?: Maybe<Scalars['String']>;
+  mediaCollection_exists?: Maybe<Scalars['Boolean']>;
+  size_exists?: Maybe<Scalars['Boolean']>;
+  size?: Maybe<Scalars['Int']>;
+  size_not?: Maybe<Scalars['Int']>;
+  size_in?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  size_not_in?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  size_gt?: Maybe<Scalars['Int']>;
+  size_gte?: Maybe<Scalars['Int']>;
+  size_lt?: Maybe<Scalars['Int']>;
+  size_lte?: Maybe<Scalars['Int']>;
+  OR?: Maybe<Array<Maybe<MediaFilter>>>;
+  AND?: Maybe<Array<Maybe<MediaFilter>>>;
 };
+
+export enum MediaOrder {
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  SizeAsc = 'size_ASC',
+  SizeDesc = 'size_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export type PageFilter = {
   sys?: Maybe<SysFilter>;
@@ -537,6 +866,20 @@ export type PageFilter = {
   slug_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
   slug_contains?: Maybe<Scalars['String']>;
   slug_not_contains?: Maybe<Scalars['String']>;
+  title_exists?: Maybe<Scalars['Boolean']>;
+  title?: Maybe<Scalars['String']>;
+  title_not?: Maybe<Scalars['String']>;
+  title_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  title_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  title_contains?: Maybe<Scalars['String']>;
+  title_not_contains?: Maybe<Scalars['String']>;
+  description_exists?: Maybe<Scalars['Boolean']>;
+  description?: Maybe<Scalars['String']>;
+  description_not?: Maybe<Scalars['String']>;
+  description_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  description_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  description_contains?: Maybe<Scalars['String']>;
+  description_not_contains?: Maybe<Scalars['String']>;
   text_exists?: Maybe<Scalars['Boolean']>;
   text?: Maybe<Scalars['String']>;
   text_not?: Maybe<Scalars['String']>;
@@ -545,6 +888,7 @@ export type PageFilter = {
   text_contains?: Maybe<Scalars['String']>;
   text_not_contains?: Maybe<Scalars['String']>;
   image_exists?: Maybe<Scalars['Boolean']>;
+  blocksCollection_exists?: Maybe<Scalars['Boolean']>;
   OR?: Maybe<Array<Maybe<PageFilter>>>;
   AND?: Maybe<Array<Maybe<PageFilter>>>;
 };
@@ -554,6 +898,8 @@ export enum PageOrder {
   NameDesc = 'name_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
   SysIdAsc = 'sys_id_ASC',
   SysIdDesc = 'sys_id_DESC',
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
@@ -563,6 +909,85 @@ export enum PageOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
+
+export type BlockFilter = {
+  sys?: Maybe<SysFilter>;
+  name_exists?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  name_not?: Maybe<Scalars['String']>;
+  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  name_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  name_contains?: Maybe<Scalars['String']>;
+  name_not_contains?: Maybe<Scalars['String']>;
+  componentsCollection_exists?: Maybe<Scalars['Boolean']>;
+  OR?: Maybe<Array<Maybe<BlockFilter>>>;
+  AND?: Maybe<Array<Maybe<BlockFilter>>>;
+};
+
+export enum BlockOrder {
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
+export type TextFilter = {
+  sys?: Maybe<SysFilter>;
+  name_exists?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  name_not?: Maybe<Scalars['String']>;
+  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  name_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  name_contains?: Maybe<Scalars['String']>;
+  name_not_contains?: Maybe<Scalars['String']>;
+  text_exists?: Maybe<Scalars['Boolean']>;
+  text?: Maybe<Scalars['String']>;
+  text_not?: Maybe<Scalars['String']>;
+  text_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  text_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  text_contains?: Maybe<Scalars['String']>;
+  text_not_contains?: Maybe<Scalars['String']>;
+  size_exists?: Maybe<Scalars['Boolean']>;
+  size?: Maybe<Scalars['Int']>;
+  size_not?: Maybe<Scalars['Int']>;
+  size_in?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  size_not_in?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  size_gt?: Maybe<Scalars['Int']>;
+  size_gte?: Maybe<Scalars['Int']>;
+  size_lt?: Maybe<Scalars['Int']>;
+  size_lte?: Maybe<Scalars['Int']>;
+  OR?: Maybe<Array<Maybe<TextFilter>>>;
+  AND?: Maybe<Array<Maybe<TextFilter>>>;
+};
+
+export enum TextOrder {
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  SizeAsc = 'size_ASC',
+  SizeDesc = 'size_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
+export type TextCollection = {
+  __typename?: 'TextCollection';
+  total: Scalars['Int'];
+  skip: Scalars['Int'];
+  limit: Scalars['Int'];
+  items: Array<Maybe<Text>>;
+};
 
 export type ProjectFilter = {
   sys?: Maybe<SysFilter>;
@@ -607,15 +1032,68 @@ export enum ProjectOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
+export type AssetFragment = (
+  { __typename?: 'Asset' }
+  & Pick<Asset, 'url' | 'title'>
+  & { sys: (
+    { __typename?: 'Sys' }
+    & Pick<Sys, 'id'>
+  ) }
+);
+
+export type BlockFragment = (
+  { __typename?: 'Block' }
+  & { componentsCollection?: Maybe<(
+    { __typename?: 'BlockComponentsCollection' }
+    & { items: Array<Maybe<(
+      { __typename?: 'Media' }
+      & MediaFragment
+    ) | (
+      { __typename?: 'Text' }
+      & TextFragment
+    )>> }
+  )> }
+);
+
+export type MediaFragment = (
+  { __typename?: 'Media' }
+  & Pick<Media, 'size'>
+  & { sys: (
+    { __typename?: 'Sys' }
+    & Pick<Sys, 'id'>
+  ), mediaCollection?: Maybe<(
+    { __typename?: 'AssetCollection' }
+    & { items: Array<Maybe<(
+      { __typename?: 'Asset' }
+      & Pick<Asset, 'url'>
+      & { sys: (
+        { __typename?: 'Sys' }
+        & Pick<Sys, 'id'>
+      ) }
+      & AssetFragment
+    )>> }
+  )> }
+);
+
 export type PageFragment = (
   { __typename?: 'Page' }
-  & Pick<Page, 'name' | 'slug' | 'text'>
+  & Pick<Page, 'name' | 'slug' | 'title' | 'description' | 'text'>
   & { sys: (
     { __typename?: 'Sys' }
     & Pick<Sys, 'id'>
   ), image?: Maybe<(
     { __typename?: 'Asset' }
     & Pick<Asset, 'url' | 'title'>
+  )>, blocksCollection?: Maybe<(
+    { __typename?: 'PageBlocksCollection' }
+    & { items: Array<Maybe<(
+      { __typename?: 'Block' }
+      & { sys: (
+        { __typename?: 'Sys' }
+        & Pick<Sys, 'id'>
+      ) }
+      & BlockFragment
+    )>> }
   )> }
 );
 
@@ -667,6 +1145,63 @@ export type GetProjectsQuery = (
   )> }
 );
 
+export type TextFragment = (
+  { __typename?: 'Text' }
+  & Pick<Text, 'text' | 'size'>
+  & { sys: (
+    { __typename?: 'Sys' }
+    & Pick<Sys, 'id'>
+  ) }
+);
+
+export const TextFragmentDoc = gql`
+    fragment Text on Text {
+  sys {
+    id
+  }
+  text
+  size
+}
+    `;
+export const AssetFragmentDoc = gql`
+    fragment Asset on Asset {
+  sys {
+    id
+  }
+  url
+  title
+}
+    `;
+export const MediaFragmentDoc = gql`
+    fragment Media on Media {
+  sys {
+    id
+  }
+  size
+  mediaCollection(limit: 2) {
+    items {
+      sys {
+        id
+      }
+      url
+      ... on Asset {
+        ...Asset
+      }
+    }
+  }
+}
+    ${AssetFragmentDoc}`;
+export const BlockFragmentDoc = gql`
+    fragment Block on Block {
+  componentsCollection(limit: 2) {
+    items {
+      ...Text
+      ...Media
+    }
+  }
+}
+    ${TextFragmentDoc}
+${MediaFragmentDoc}`;
 export const PageFragmentDoc = gql`
     fragment Page on Page {
   sys {
@@ -674,13 +1209,23 @@ export const PageFragmentDoc = gql`
   }
   name
   slug
+  title
+  description
   text
   image {
     url
     title
   }
+  blocksCollection(limit: 10) {
+    items {
+      sys {
+        id
+      }
+      ...Block
+    }
+  }
 }
-    `;
+    ${BlockFragmentDoc}`;
 export const GetPagesDocument = gql`
     query GetPages {
   pageCollection {

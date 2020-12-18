@@ -1,10 +1,10 @@
 @import "../config";
 
-.container {
+.root {
   display: grid;
   grid-template-rows: repeat(3, auto);
   max-width: 50rem;
-  min-height: 100vh;
+  min-height: stretch;
   justify-content: center;
   align-content: center;
   margin-left: auto;
@@ -22,17 +22,11 @@
   margin-bottom: 3rem;
 }
 
-.title,
-.description {
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.75rem;
-}
-
 .title {
   font-weight: normal;
   line-height: 1.5;
   margin-bottom: 1rem;
+  font-weight: bold;
 }
 
 .description {
