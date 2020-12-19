@@ -1,4 +1,37 @@
 @import "../abstracts";
 
 .root {
+  > * + section {
+    margin-top: 4rem;
+  }
+}
+
+.header {
+  display: grid;
+  align-items: center;
+  text-align: center;
+}
+
+.image,
+.title {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+}
+
+.image {
+  height: 100vh;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.title {
+  @include fluid-type(30, 90, 375, 2560);
+}
+
+.content {
+  @include container;
 }

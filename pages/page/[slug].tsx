@@ -16,9 +16,21 @@ const PageBySlug = ({ page }: Props) => {
   return (
     <Layout title={page.title || page.name} description={page.description}>
       <article className={styles.root}>
-        {page.image && <img src={page.image.url} alt={page.image.title} />}
-        <h1>{page.name}</h1>
-        <ReactMarkdown>{page.text}</ReactMarkdown>
+        <header className={styles.header}>
+          {page.image && (
+            <div className={styles.image}>
+              <img
+                className={styles.img}
+                src={page.image.url}
+                alt={page.image.title}
+              />
+            </div>
+          )}
+          <h1 className={styles.title}>{page.name}</h1>
+        </header>
+        <section>
+          <ReactMarkdown className={styles.content}>{page.text}</ReactMarkdown>
+        </section>
         {page.blocksCollection.items.map((block) => (
           <Block key={block.sys.id} block={block} />
         ))}
