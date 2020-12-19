@@ -1,6 +1,7 @@
 @import "../../styles/abstracts";
 
 .root {
+  @include block-spacing;
 }
 
 .container {

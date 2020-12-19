@@ -68,7 +68,7 @@ export function initializeApollo(
 
 export function addApolloState(
   client: ApolloClient<NormalizedCacheObject>,
-  pageProps: { props: any; revalidate?: number }
+  pageProps: { props: any; revalidate?: boolean }
 ) {
   if (pageProps?.props) {
     pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();

@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { ContentfulAsset } from "./asset";
 
 export const GET_PROJECTS = gql`
   query GetProjects {
@@ -10,7 +11,12 @@ export const GET_PROJECTS = gql`
         name
         slug
         text
+        image {
+          ...ContentfulAsset
+        }
       }
     }
   }
+
+  ${ContentfulAsset}
 `;

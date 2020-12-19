@@ -1,4 +1,5 @@
 import Head from "next/head";
+import styles from "./Layout.module.scss";
 import { title, description } from "@config/seo.json";
 import Header from "@components/Header";
 
@@ -19,7 +20,7 @@ const Layout = ({ children, ...props }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <main>{children}</main>
+      <main className={styles.main}>{children}</main>
     </>
   );
 };

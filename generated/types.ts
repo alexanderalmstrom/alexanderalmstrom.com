@@ -1068,11 +1068,6 @@ export type ContentfulMediaFragment = (
     { __typename?: 'AssetCollection' }
     & { items: Array<Maybe<(
       { __typename?: 'Asset' }
-      & Pick<Asset, 'url'>
-      & { sys: (
-        { __typename?: 'Sys' }
-        & Pick<Sys, 'id'>
-      ) }
       & ContentfulAssetFragment
     )>> }
   )> }
@@ -1139,7 +1134,10 @@ export type GetProjectsQuery = (
       & { sys: (
         { __typename?: 'Sys' }
         & Pick<Sys, 'id'>
-      ) }
+      ), image?: Maybe<(
+        { __typename?: 'Asset' }
+        & ContentfulAssetFragment
+      )> }
     )>> }
   )> }
 );
@@ -1180,13 +1178,7 @@ export const ContentfulMediaFragmentDoc = gql`
   size
   mediaCollection(limit: 2) {
     items {
-      sys {
-        id
-      }
-      url
-      ... on Asset {
-        ...ContentfulAsset
-      }
+      ...ContentfulAsset
     }
   }
 }
@@ -1305,10 +1297,13 @@ export const GetProjectsDocument = gql`
       name
       slug
       text
+      image {
+        ...ContentfulAsset
+      }
     }
   }
 }
-    `;
+    ${ContentfulAssetFragmentDoc}`;
 
 /**
  * __useGetProjectsQuery__

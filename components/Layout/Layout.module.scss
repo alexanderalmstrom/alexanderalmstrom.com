@@ -1,0 +1,11 @@
+@import "../../styles/abstracts";
+
+.main {
+  padding-top: rem(120);
+}
+
+@include media(">=medium") {
+  .main {
+    padding-top: rem(150);
+  }
+}

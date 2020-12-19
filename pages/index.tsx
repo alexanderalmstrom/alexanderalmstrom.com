@@ -8,8 +8,7 @@ const Home = ({}: Props) => {
   return (
     <Layout>
       <div className={styles.root}>
-        <h1 className={styles.title}>{title}</h1>
-        <p className={styles.description}>{description}</p>
+        <h1 className={styles.title}>{description}</h1>
       </div>
     </Layout>
   );

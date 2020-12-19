@@ -28,9 +28,9 @@ const PageBySlug = ({ page }: Props) => {
           )}
           <h1 className={styles.title}>{page.name}</h1>
         </header>
-        <section>
-          <ReactMarkdown className={styles.content}>{page.text}</ReactMarkdown>
-        </section>
+        {page.text && (
+          <ReactMarkdown className={styles.text}>{page.text}</ReactMarkdown>
+        )}
         {page.blocksCollection.items.map((block) => (
           <Block key={block.sys.id} block={block} />
         ))}
@@ -65,6 +65,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     query: GET_PAGE,
     variables: {
       slug: params.slug,
+      preview: process.env.CONTENTFUL_PREVIEW,
     },
   });
 
@@ -74,6 +75,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       page,
     },
-    revalidate: 1,
+    revalidate: true,
   });
 };

@@ -13,6 +13,9 @@ const Header = ({}: Props) => {
         </a>
       </Link>
       <nav className={styles.nav}>
+        <Link href="/projects">
+          <a>Projects</a>
+        </Link>
         <Link href="/page/about">
           <a>About</a>
         </Link>

@@ -1,27 +1,40 @@
 @import "../../styles/abstracts";
 
 .root {
+  --size: #{rem(40)};
+
   position: fixed;
   top: 0;
   width: 100%;
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
-  gap: 2rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-top: 2rem;
+  gap: var(--size);
+  padding-left: var(--size);
+  padding-right: var(--size);
+  padding-top: var(--size);
 }
 
 .logo {
-  width: 2rem;
-  height: 2rem;
-  min-width: 2rem;
-  min-height: 2rem;
+  width: var(--size);
+  height: var(--size);
+  min-width: var(--size);
+  min-height: var(--size);
   fill: color("white");
 }
 
 .nav {
   display: flex;
   justify-content: flex-end;
+  font-weight: bold;
+}
+
+.nav a {
+  margin-left: var(--size);
+}
+
+@include media(">=medium") {
+  .root {
+    --size: #{rem(50)};
+  }
 }

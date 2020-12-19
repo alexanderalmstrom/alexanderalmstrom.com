@@ -12,7 +12,11 @@ const PageProjects = ({ projects }: Props) => {
   return (
     <Layout title="Projects">
       {projects.projectCollection.items.map((project) => (
-        <div key={project.sys.id}>{project.name}</div>
+        <div key={project.sys.id}>
+          {project.image && (
+            <img src={project.image.url} alt={project.image.title} />
+          )}
+        </div>
       ))}
     </Layout>
   );
@@ -31,6 +35,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       projects,
     },
-    revalidate: 1,
+    revalidate: true,
   });
 };

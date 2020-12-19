@@ -12,11 +12,14 @@ const MediaComponent = ({ mediaCollection, size }: Media) => (
     {mediaCollection.items.map((media) => {
       switch (media.contentType) {
         case "image/jpeg":
-          return <img key={media.sys.id} src={media.url} />;
+          return (
+            <img key={media.sys.id} className={styles.img} src={media.url} />
+          );
         case "video/mp4":
           return (
             <video
               key={media.sys.id}
+              className={styles.video}
               src={media.url}
               autoPlay
               muted

@@ -9,13 +9,7 @@ export const ContentfulMedia = gql`
     size
     mediaCollection(limit: 2) {
       items {
-        sys {
-          id
-        }
-        url
-        ... on Asset {
-          ...ContentfulAsset
-        }
+        ...ContentfulAsset
       }
     }
   }

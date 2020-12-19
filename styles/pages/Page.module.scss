@@ -1,12 +1,8 @@
 @import "../abstracts";
 
-.root {
-  > * + section {
-    margin-top: spacing("medium");
-  }
-}
-
 .header {
+  @include block-spacing;
+
   display: grid;
   align-items: center;
   text-align: center;
@@ -29,9 +25,9 @@
 }
 
 .title {
-  @include fluid-type(30, 90, 375, 2560);
+  @include h1;
 }
 
-.content {
+.text {
   @include container;
 }

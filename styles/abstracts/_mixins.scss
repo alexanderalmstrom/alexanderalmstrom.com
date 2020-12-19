@@ -39,3 +39,29 @@
     font-size: $maxS;
   }
 }
+
+@mixin block-spacing {
+  margin-top: spacing("medium");
+
+  @include media(">=medium") {
+    margin-top: spacing("large");
+  }
+
+  @include media(">=large") {
+    margin-top: spacing("xlarge");
+  }
+}
+
+@mixin h1 {
+  @include fluid-type(40, 80, 375, 2560);
+
+  line-height: 1.1;
+}
+
+@mixin h2 {
+  @include fluid-type(30, 60, 375, 2560);
+}
+
+@mixin h3 {
+  @include fluid-type(20, 40, 375, 2560);
+}
