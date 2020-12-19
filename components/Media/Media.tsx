@@ -21,6 +21,7 @@ const MediaComponent = ({ mediaCollection, size }: Media) => (
               autoPlay
               muted
               loop
+              playsInline
             ></video>
           );
       }
