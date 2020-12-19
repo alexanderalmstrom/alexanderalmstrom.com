@@ -2,7 +2,7 @@
 
 .root {
   > * + section {
-    margin-top: 4rem;
+    margin-top: spacing("medium");
   }
 }
 

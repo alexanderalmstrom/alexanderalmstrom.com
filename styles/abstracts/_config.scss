@@ -8,8 +8,8 @@ $breakpoints: (
 );
 
 $grid-columns: 12;
-$grid-width: 71.25rem;
-$grid-gutter: 1.875rem;
+$grid-width: 80rem;
+$grid-gutter: 1px;
 
 $colors: (
   "black": (
@@ -18,4 +18,12 @@ $colors: (
   "white": (
     "base": #ffffff,
   ),
+);
+
+$spacings: (
+  "xsmall": 12,
+  "small": 24,
+  "medium": 48,
+  "large": 96,
+  "xlarge": 192,
 );

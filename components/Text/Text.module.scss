@@ -1,4 +1,6 @@
+@import "../../styles/abstracts";
+
 .root {
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: spacing("medium");
+  padding-right: spacing("medium");
 }

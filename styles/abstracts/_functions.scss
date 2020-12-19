@@ -39,3 +39,7 @@
 @function color($name, $shade: "base") {
   @return map-get(map-get($colors, $name), $shade);
 }
+
+@function spacing($name) {
+  @return rem(map-get($spacings, $name));
+}
