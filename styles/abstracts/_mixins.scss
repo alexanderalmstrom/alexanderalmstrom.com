@@ -107,3 +107,11 @@
 @mixin h6 {
   font-size: 1rem;
 }
+
+@mixin paragraph-large {
+  font-size: rem(18);
+
+  @include media(">=medium") {
+    font-size: rem(20);
+  }
+}

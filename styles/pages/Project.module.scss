@@ -12,4 +12,8 @@
 
 .text {
   @include container;
+  @include paragraph-large;
+
+  padding-left: spacing("small");
+  padding-right: spacing("small");
 }
