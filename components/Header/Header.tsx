@@ -1,5 +1,5 @@
 import styles from "./Header.module.scss";
-import Logo from "../../assets/logo.svg";
+import Logo from "../../assets/logo-v2.svg";
 import Link from "next/link";
 
 interface Props {}
