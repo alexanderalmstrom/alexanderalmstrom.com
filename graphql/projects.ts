@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import { Asset } from "./asset";
 import { Project } from "./project";
 
 export const GET_PROJECTS = gql`
@@ -11,7 +10,6 @@ export const GET_PROJECTS = gql`
     }
   }
 
-  ${Asset}
   ${Project}
 `;
 
@@ -24,6 +22,5 @@ export const GET_PROJECT = gql`
     }
   }
 
-  ${Asset}
   ${Project}
 `;
