@@ -51,7 +51,7 @@ h6 {
   font-weight: bold;
   line-height: 1.2;
   margin-top: 0;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 h1 {
@@ -66,10 +66,22 @@ h3 {
   @include h3;
 }
 
+h4 {
+  @include h4;
+}
+
+h5 {
+  @include h5;
+}
+
+h6 {
+  @include h6;
+}
+
 p {
   line-height: 1.7;
   margin-top: 0;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 a {

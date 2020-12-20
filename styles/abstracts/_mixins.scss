@@ -81,9 +81,29 @@
 }
 
 @mixin h2 {
-  @include fluid-type(30, 60, 375, 2560);
+  @include fluid-type(30, 50, 375, 2560);
 }
 
 @mixin h3 {
-  @include fluid-type(20, 40, 375, 2560);
+  @include fluid-type(24, 30, 375, 2560);
+}
+
+@mixin h4 {
+  font-size: rem(20);
+
+  @include media(">=medium") {
+    font-size: rem(24);
+  }
+}
+
+@mixin h5 {
+  font-size: rem(18);
+
+  @include media(">=medium") {
+    font-size: rem(20);
+  }
+}
+
+@mixin h6 {
+  font-size: 1rem;
 }
