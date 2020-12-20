@@ -5,7 +5,10 @@
 
 @mixin fluid-grid($min: 30rem, $max: 1fr, $fill: auto-fill) {
   display: grid;
-  grid-template-columns: repeat($fill, minmax($min, $max));
+
+  @include media(">=small") {
+    grid-template-columns: repeat($fill, minmax($min, $max));
+  }
 }
 
 @mixin gutter($gutter: $grid-gutter) {
