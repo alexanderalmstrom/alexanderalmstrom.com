@@ -7,8 +7,6 @@
 .header {
   @include block-spacing;
 
-  display: grid;
-  align-items: center;
   text-align: center;
 }
 
