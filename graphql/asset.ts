@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const ContentfulAsset = gql`
-  fragment ContentfulAsset on Asset {
+export const Asset = gql`
+  fragment Asset on Asset {
     sys {
       id
     }

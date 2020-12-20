@@ -1,4 +1,6 @@
 import { GetStaticProps } from "next";
+import Link from "next/link";
+import styles from "@styles/pages/Projects.module.scss";
 import { Projects } from "@interfaces/projects";
 import { addApolloState, initializeApollo } from "@lib/apolloClient";
 import { GET_PROJECTS } from "@graphql/projects";
@@ -11,13 +13,22 @@ interface Props {
 const PageProjects = ({ projects }: Props) => {
   return (
     <Layout title="Projects">
-      {projects.projectCollection.items.map((project) => (
-        <div key={project.sys.id}>
-          {project.image && (
-            <img src={project.image.url} alt={project.image.title} />
-          )}
+      <article className={styles.root}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>Projects</h1>
+        </header>
+        <div className={styles.projects}>
+          {projects.projectCollection.items.map((project) => (
+            <Link key={project.sys.id} href={`/project/${project.slug}`}>
+              <a>
+                {project.image && (
+                  <img src={project.image.url} alt={project.image.title} />
+                )}
+              </a>
+            </Link>
+          ))}
         </div>
-      ))}
+      </article>
     </Layout>
   );
 };

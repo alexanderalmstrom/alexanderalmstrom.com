@@ -1,3 +1,13 @@
+@mixin grid($columns: 2) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+}
+
+@mixin fluid-grid($min: 30rem, $max: 1fr, $fill: auto-fill) {
+  display: grid;
+  grid-template-columns: repeat($fill, minmax($min, $max));
+}
+
 @mixin gutter($gutter: $grid-gutter) {
   padding-left: $gutter;
   padding-right: $gutter;
@@ -8,9 +18,6 @@
   max-width: $container-width;
   margin-left: auto;
   margin-right: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
 @mixin col($size, $gutter: $grid-gutter) {
@@ -49,6 +56,18 @@
 
   @include media(">=large") {
     margin-top: spacing("xlarge");
+  }
+}
+
+@mixin page-spacing {
+  margin-bottom: spacing("medium");
+
+  @include media(">=medium") {
+    margin-bottom: spacing("large");
+  }
+
+  @include media(">=large") {
+    margin-bottom: spacing("xlarge");
   }
 }
 

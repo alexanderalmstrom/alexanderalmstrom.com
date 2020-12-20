@@ -1,0 +1,15 @@
+@import "../abstracts";
+
+.root {
+  @include page-spacing;
+}
+
+.header {
+  @include block-spacing;
+
+  text-align: center;
+}
+
+.text {
+  @include container;
+}

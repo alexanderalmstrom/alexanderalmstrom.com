@@ -1,0 +1,23 @@
+@import "../abstracts";
+
+.root {
+  @include page-spacing;
+}
+
+.header {
+  @include block-spacing;
+
+  text-align: center;
+}
+
+.title {
+  @include container;
+}
+
+.projects {
+  @include block-spacing;
+  @include container;
+  @include fluid-grid;
+
+  gap: $grid-gutter;
+}

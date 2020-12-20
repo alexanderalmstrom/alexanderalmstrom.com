@@ -65,7 +65,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     query: GET_PAGE,
     variables: {
       slug: params.slug,
-      preview: process.env.CONTENTFUL_PREVIEW,
     },
   });
 

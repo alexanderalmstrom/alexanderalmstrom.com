@@ -1,18 +1,18 @@
 import { gql } from "@apollo/client";
-import { ContentfulAsset } from "./asset";
+import { Asset } from "./asset";
 
-export const ContentfulMedia = gql`
-  fragment ContentfulMedia on Media {
+export const Media = gql`
+  fragment Media on Media {
     sys {
       id
     }
     size
     mediaCollection(limit: 2) {
       items {
-        ...ContentfulAsset
+        ...Asset
       }
     }
   }
 
-  ${ContentfulAsset}
+  ${Asset}
 `;

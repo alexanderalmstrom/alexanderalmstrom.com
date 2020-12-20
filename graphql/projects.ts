@@ -1,22 +1,29 @@
 import { gql } from "@apollo/client";
-import { ContentfulAsset } from "./asset";
+import { Asset } from "./asset";
+import { Project } from "./project";
 
 export const GET_PROJECTS = gql`
   query GetProjects {
     projectCollection {
       items {
-        sys {
-          id
-        }
-        name
-        slug
-        text
-        image {
-          ...ContentfulAsset
-        }
+        ...Project
       }
     }
   }
 
-  ${ContentfulAsset}
+  ${Asset}
+  ${Project}
+`;
+
+export const GET_PROJECT = gql`
+  query GetProject($slug: String!) {
+    projectCollection(where: { slug: $slug }) {
+      items {
+        ...Project
+      }
+    }
+  }
+
+  ${Asset}
+  ${Project}
 `;
