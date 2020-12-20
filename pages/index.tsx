@@ -16,7 +16,9 @@ const Home = ({ projects }: Props) => {
   return (
     <Layout>
       <div className={homeStyles.root}>
-        <h1 className={homeStyles.title}>{description}</h1>
+        <header className={homeStyles.header}>
+          <h1 className={homeStyles.title}>{description}</h1>
+        </header>
         <div className={projectStyles.projects}>
           {projects.projectCollection.items.map((project) => (
             <Link key={project.sys.id} href={`/project/${project.slug}`}>

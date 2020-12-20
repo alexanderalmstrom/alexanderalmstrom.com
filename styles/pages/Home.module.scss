@@ -3,7 +3,10 @@
 .root {
   @include container;
   @include block-spacing;
+  @include page-spacing;
+}
 
+.header {
   padding-left: spacing("small");
   padding-right: spacing("small");
 }
