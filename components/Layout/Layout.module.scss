@@ -1,7 +1,30 @@
 @import "../../styles/abstracts";
 
 .main {
+  width: 100%;
   padding-top: rem(120);
+}
+
+.vertical {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  transform-origin: center center;
+  text-align: center;
+  padding-left: spacing("medium");
+  padding-right: spacing("medium");
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  line-height: rem(50);
+  white-space: nowrap;
+  font-weight: bold;
+  z-index: 1;
+}
+
+@include media("<xlarge") {
+  .vertical {
+    display: none;
+  }
 }
 
 @include media(">=medium") {

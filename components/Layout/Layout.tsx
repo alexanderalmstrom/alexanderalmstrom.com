@@ -20,6 +20,9 @@ const Layout = ({ children, ...props }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
+      <div className={styles.vertical}>
+        Senior Frontend Developer &amp; Art Director
+      </div>
       <main className={styles.main}>{children}</main>
     </>
   );

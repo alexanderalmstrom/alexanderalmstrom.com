@@ -17,7 +17,10 @@ const Home = ({ projects }: Props) => {
     <Layout>
       <div className={homeStyles.root}>
         <header className={homeStyles.header}>
-          <h1 className={homeStyles.title}>{description}</h1>
+          <h1 className={homeStyles.title}>
+            Senior Frontend Developer &amp; Art Director based in Stockholm,
+            Sweden.
+          </h1>
         </header>
         <div className={projectStyles.projects}>
           {projects.projectCollection.items.map((project) => (
