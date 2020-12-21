@@ -5,8 +5,7 @@
 }
 
 .header {
-  @include block-spacing;
-
+  padding-top: 5%;
   padding-left: spacing("small");
   padding-right: spacing("small");
   text-align: center;
