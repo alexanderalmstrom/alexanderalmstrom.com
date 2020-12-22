@@ -1,0 +1,61 @@
+@import "../../styles/abstracts";
+
+.container {
+  @include container;
+  @include fluid-grid(30rem);
+
+  gap: spacing("small");
+  padding-top: spacing("large");
+  padding-bottom: spacing("large");
+  padding-left: spacing("small");
+  padding-right: spacing("small");
+}
+
+.wave {
+  width: 100%;
+  height: rem(6);
+}
+
+.title,
+.description,
+.email,
+.tel {
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+.title {
+  @include h5;
+}
+
+.description {
+  @include h2;
+}
+
+.email,
+.tel {
+  @include h5;
+}
+
+@include media(">=small") {
+  .title {
+    @include h3;
+  }
+
+  .description {
+    @include h3;
+  }
+
+  .email,
+  .tel {
+    @include h3;
+  }
+}
+
+@include media(">=large") {
+  .container {
+    padding-top: spacing("xlarge");
+    padding-bottom: spacing("xlarge");
+  }
+}

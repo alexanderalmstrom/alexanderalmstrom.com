@@ -2,6 +2,7 @@ import Head from "next/head";
 import styles from "./Layout.module.scss";
 import { title, description } from "@config/seo.json";
 import Header from "@components/Header";
+import Footer from "@components/Footer";
 
 interface Props {
   children: React.ReactNode;
@@ -20,10 +21,13 @@ const Layout = ({ children, ...props }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <div className={styles.vertical}>
-        Senior Frontend Developer &amp; Art Director
-      </div>
-      <main className={styles.main}>{children}</main>
+      <main className={styles.main}>
+        <div className={styles.vertical}>
+          Senior Frontend Developer &amp; Art Director
+        </div>
+        {children}
+      </main>
+      <Footer />
     </>
   );
 };

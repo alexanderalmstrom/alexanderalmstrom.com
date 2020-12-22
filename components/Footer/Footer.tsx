@@ -1,0 +1,31 @@
+import styles from "./Footer.module.scss";
+import WavePattern from "../../assets/wave-pattern.svg";
+import { title, description } from "@config/seo.json";
+
+interface Props {}
+
+const Footer = ({}: Props) => {
+  return (
+    <footer className={styles.root}>
+      <WavePattern className={styles.wave} />
+      <div className={styles.container}>
+        <div className={styles.column}>
+          <p className={styles.title}>{title}</p>
+          <p className={styles.description}>{description}</p>
+        </div>
+        <div className={styles.column}>
+          <p className={styles.email}>
+            <a href="mailto:alexander@alexanderalmstrom.com">
+              alexander@alexanderalmstrom.com
+            </a>
+          </p>
+          <p className={styles.tel}>
+            <a href="tel:+46763395288">+46 76 33 952 88</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

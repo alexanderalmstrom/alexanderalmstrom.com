@@ -2,7 +2,8 @@
 
 .main {
   width: 100%;
-  padding-top: rem(120);
+  min-height: -webkit-fill-available;
+  min-height: stretch;
 }
 
 .vertical {
@@ -13,7 +14,7 @@
   padding-left: spacing("medium");
   padding-right: spacing("medium");
   height: 100vh;
-  position: fixed;
+  position: sticky;
   top: 0;
   line-height: rem(50);
   white-space: nowrap;
@@ -21,14 +22,21 @@
   z-index: 1;
 }
 
-@include media("<xlarge") {
+@include media("<87.5em") {
   .vertical {
     display: none;
   }
 }
 
-@include media(">=medium") {
+// @include media(">=medium") {
+//   .main {
+//     padding-top: rem(150);
+//   }
+// }
+
+@include media(">=87.5em") {
   .main {
-    padding-top: rem(150);
+    display: grid;
+    grid-template-columns: rem(150) 1fr;
   }
 }

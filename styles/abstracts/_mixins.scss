@@ -63,14 +63,12 @@
 }
 
 @mixin page-spacing {
-  margin-bottom: spacing("medium");
-
-  @include media(">=medium") {
-    margin-bottom: spacing("large");
-  }
+  padding-top: spacing("large");
+  padding-bottom: spacing("large");
 
   @include media(">=large") {
-    margin-bottom: spacing("xlarge");
+    padding-top: spacing("xlarge");
+    padding-bottom: spacing("xlarge");
   }
 }
 

@@ -2,11 +2,12 @@
 
 .root {
   @include container;
-  @include block-spacing;
   @include page-spacing;
 }
 
 .header {
+  @include block-spacing;
+
   padding-left: spacing("small");
   padding-right: spacing("small");
 }
