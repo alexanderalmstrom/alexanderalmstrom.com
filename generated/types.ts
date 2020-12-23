@@ -1092,7 +1092,7 @@ export type TextCollection = {
 
 export type AssetFragment = (
   { __typename?: 'Asset' }
-  & Pick<Asset, 'url' | 'title' | 'contentType'>
+  & Pick<Asset, 'url' | 'title' | 'contentType' | 'width' | 'height'>
   & { sys: (
     { __typename?: 'Sys' }
     & Pick<Sys, 'id'>
@@ -1244,6 +1244,8 @@ export const AssetFragmentDoc = gql`
   url
   title
   contentType
+  width
+  height
 }
     `;
 export const TextFragmentDoc = gql`

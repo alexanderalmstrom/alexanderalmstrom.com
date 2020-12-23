@@ -8,5 +8,7 @@ export const Asset = gql`
     url
     title
     contentType
+    width
+    height
   }
 `;

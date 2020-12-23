@@ -27,7 +27,12 @@ const Home = ({ projects }: Props) => {
             <Link key={project.sys.id} href={`/project/${project.slug}`}>
               <a>
                 {project.image && (
-                  <img src={project.image.url} alt={project.image.title} />
+                  <img
+                    src={`${project.image.url}?w=1280&q=75&fm=jpg&fl=progressive`}
+                    alt={project.image.title}
+                    width={project.image.width}
+                    height={project.image.height}
+                  />
                 )}
               </a>
             </Link>

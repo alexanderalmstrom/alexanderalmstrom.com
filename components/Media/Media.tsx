@@ -40,6 +40,9 @@ const MediaComponent = ({ mediaCollection, size }: Media) => {
                 className={styles.img}
                 src={`${media.url}?w=100`}
                 data-src={`${media.url}?w=2560&q=75&fm=jpg&fl=progressive`}
+                alt={media.title}
+                width={media.width}
+                height={media.height}
               />
             );
           case "video/mp4":
