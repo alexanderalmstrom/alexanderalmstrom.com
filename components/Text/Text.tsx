@@ -1,7 +1,6 @@
-import React from "react";
-import styles from "./Text.module.scss";
 import classNames from "classnames";
 import ReactMarkdown from "react-markdown";
+import styles from "./Text.module.scss";
 import { Text } from "@generated/types";
 
 const TextComponent = ({ text, size }: Text) => (

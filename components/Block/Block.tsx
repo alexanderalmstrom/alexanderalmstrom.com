@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./Block.module.scss";
 import { Block } from "@generated/types";
 import Text from "@components/Text";

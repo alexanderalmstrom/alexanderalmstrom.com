@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import styles from "./Media.module.scss";
+import { useRef } from "react";
 import classNames from "classnames";
+import styles from "./Media.module.scss";
 import { Media } from "@generated/types";
 import useIntersectionObserver from "hooks/useIntersect";
 
