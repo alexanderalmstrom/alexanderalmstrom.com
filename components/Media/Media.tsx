@@ -13,7 +13,11 @@ const MediaComponent = ({ mediaCollection, size }: Media) => (
       switch (media.contentType) {
         case "image/jpeg":
           return (
-            <img key={media.sys.id} className={styles.img} src={media.url} />
+            <img
+              key={media.sys.id}
+              className={styles.img}
+              src={`${media.url}?w=2560&q=75&fm=jpg&fl=progressive`}
+            />
           );
         case "video/mp4":
           return (
