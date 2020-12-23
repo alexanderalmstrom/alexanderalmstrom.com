@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import styles from "./Layout.module.scss";
 import { title, description } from "@config/seo.json";
 import Header from "@components/Header";
