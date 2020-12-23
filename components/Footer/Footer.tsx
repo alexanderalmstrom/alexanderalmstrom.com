@@ -1,12 +1,13 @@
+import { forwardRef } from "react";
 import styles from "./Footer.module.scss";
 import WavePattern from "../../assets/wave-pattern.svg";
 import { title, description } from "@config/seo.json";
 
 interface Props {}
 
-const Footer = ({}: Props) => {
+const Footer = ({}: Props, ref) => {
   return (
-    <footer className={styles.root}>
+    <footer className={styles.root} ref={ref}>
       <WavePattern className={styles.wave} />
       <div className={styles.container}>
         <div className={styles.column}>
@@ -28,4 +29,4 @@ const Footer = ({}: Props) => {
   );
 };
 
-export default Footer;
+export default forwardRef(Footer);
