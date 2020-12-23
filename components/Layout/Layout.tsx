@@ -36,7 +36,7 @@ const Layout = ({ children, ...props }: Props) => {
         <div
           className={styles.vertical}
           style={{
-            opacity: 1 - entry?.intersectionRatio || 1,
+            opacity: 1 - (entry?.intersectionRatio || 0),
           }}
         >
           {description}
