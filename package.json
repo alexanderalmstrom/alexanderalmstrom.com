@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"yarn generate -w\" \"next dev\"",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "generate": "graphql-codegen -r dotenv/config -c codegen.yml dotenv_config_path=.env.local"
   },
