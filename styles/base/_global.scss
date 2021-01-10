@@ -1,16 +1,34 @@
+// @font-face {
+//   font-family: "Circular";
+//   src: url("/fonts/circularstd-bold-webfont.woff2") format("woff2"),
+//     url("/fonts/circularstd-bold-webfont.woff") format("woff");
+//   font-weight: bold;
+//   font-style: normal;
+//   font-display: swap;
+// }
+
+// @font-face {
+//   font-family: "Circular";
+//   src: url("/fonts/circularstd-book-webfont.woff2") format("woff2"),
+//     url("/fonts/circularstd-book-webfont.woff") format("woff");
+//   font-weight: normal;
+//   font-style: normal;
+//   font-display: swap;
+// }
+
 @font-face {
-  font-family: "Circular";
-  src: url("/fonts/circularstd-bold-webfont.woff2") format("woff2"),
-    url("/fonts/circularstd-bold-webfont.woff") format("woff");
+  font-family: "Halenoir";
+  src: url("/fonts/Halenoir-Medium.woff2") format("woff2"),
+    url("/fonts/Halenoir-Medium.woff") format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Circular";
-  src: url("/fonts/circularstd-book-webfont.woff2") format("woff2"),
-    url("/fonts/circularstd-book-webfont.woff") format("woff");
+  font-family: "Halenoir";
+  src: url("/fonts/Halenoir-Regular.woff2") format("woff2"),
+    url("/fonts/Halenoir-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -22,7 +40,7 @@
 
 body {
   margin: 0;
-  font-family: "Circular", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: "Halenoir", "Helvetica Neue", Arial, Helvetica, sans-serif;
   background-color: color("black");
   color: color("white");
   line-height: 1.3;
@@ -87,6 +105,7 @@ p {
 a {
   color: inherit;
   text-decoration: underline;
+  text-underline-position: under;
 }
 
 nav a {

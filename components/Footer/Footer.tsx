@@ -20,9 +20,6 @@ const Footer = ({}: Props, ref) => {
               alexander@alexanderalmstrom.com
             </a>
           </p>
-          <p className={styles.tel}>
-            <a href="tel:+46763395288">+46 76 33 952 88</a>
-          </p>
         </div>
       </div>
     </footer>

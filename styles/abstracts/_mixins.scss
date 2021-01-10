@@ -73,17 +73,22 @@
 }
 
 @mixin h1 {
-  @include fluid-type(40, 80, 375, 2560);
+  @include fluid-type(40, 80, 375, $grid-width);
 
+  letter-spacing: -0.01em;
   line-height: 1.1;
 }
 
 @mixin h2 {
-  @include fluid-type(30, 50, 375, 2560);
+  @include fluid-type(30, 50, 375, $grid-width);
+
+  letter-spacing: -0.01em;
 }
 
 @mixin h3 {
-  @include fluid-type(24, 30, 375, 2560);
+  @include fluid-type(24, 30, 375, $grid-width);
+
+  letter-spacing: -0.01em;
 }
 
 @mixin h4 {

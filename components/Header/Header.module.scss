@@ -38,4 +38,8 @@
   .root {
     --size: #{rem(50)};
   }
+
+  .nav a {
+    font-size: rem(18);
+  }
 }

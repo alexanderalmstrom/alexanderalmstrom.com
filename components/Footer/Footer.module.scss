@@ -1,5 +1,11 @@
 @import "../../styles/abstracts";
 
+.root {
+  a:not(:hover) {
+    text-decoration-line: none;
+  }
+}
+
 .container {
   @include container;
   @include fluid-grid(30rem);
@@ -27,6 +33,8 @@
 
 .title {
   @include h5;
+
+  margin-bottom: 0.2em;
 }
 
 .description {
