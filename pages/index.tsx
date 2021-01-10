@@ -2,7 +2,6 @@ import { GetStaticProps } from "next";
 import Link from "next/link";
 import homeStyles from "@styles/pages/Home.module.scss";
 import projectStyles from "@styles/pages/Projects.module.scss";
-import { description } from "@config/seo.json";
 import { Projects } from "@interfaces/projects";
 import { addApolloState, initializeApollo } from "@lib/apolloClient";
 import { GET_PROJECTS } from "@graphql/projects";

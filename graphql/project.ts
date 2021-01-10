@@ -15,7 +15,7 @@ export const Project = gql`
     image {
       ...Asset
     }
-    blocksCollection(limit: 10) {
+    blocksCollection(limit: 20) {
       items {
         ...Blocks
       }

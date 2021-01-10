@@ -1,10 +1,11 @@
 import styles from "@styles/pages/Project.module.scss";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { gql } from "@apollo/client";
 import ReactMarkdown from "react-markdown";
 import { Project } from "@generated/types";
 import { Projects } from "@interfaces/projects";
 import { addApolloState, initializeApollo } from "@lib/apolloClient";
-import { GET_PROJECTS, GET_PROJECT } from "@graphql/projects";
+import { GET_PROJECT } from "@graphql/projects";
 import Layout from "@components/Layout";
 import Block from "@components/Block";
 
@@ -12,7 +13,7 @@ interface Props {
   project: Project;
 }
 
-const ProjectBySlug = ({ project }: Props) => {
+const ProjectWithSlug = ({ project }: Props) => {
   return (
     <Layout
       title={project.title || project.name}
@@ -33,13 +34,21 @@ const ProjectBySlug = ({ project }: Props) => {
   );
 };
 
-export default ProjectBySlug;
+export default ProjectWithSlug;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const apolloClient = initializeApollo();
 
   const { data } = await apolloClient.query<Projects>({
-    query: GET_PROJECTS,
+    query: gql`
+      query BuildProjects {
+        projectCollection(limit: 100) {
+          items {
+            slug
+          }
+        }
+      }
+    `,
   });
 
   const paths = data.projectCollection.items.map(({ slug }) => ({

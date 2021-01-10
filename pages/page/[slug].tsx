@@ -1,10 +1,11 @@
 import styles from "@styles/pages/Page.module.scss";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { gql } from "@apollo/client";
 import ReactMarkdown from "react-markdown";
 import { Page } from "@generated/types";
 import { Pages } from "@interfaces/pages";
 import { addApolloState, initializeApollo } from "@lib/apolloClient";
-import { GET_PAGES, GET_PAGE } from "@graphql/pages";
+import { GET_PAGE } from "@graphql/pages";
 import Layout from "@components/Layout";
 import Block from "@components/Block";
 
@@ -12,7 +13,7 @@ interface Props {
   page: Page;
 }
 
-const PageBySlug = ({ page }: Props) => {
+const PageWithSlug = ({ page }: Props) => {
   return (
     <Layout title={page.title || page.name} description={page.description}>
       <article className={styles.root}>
@@ -39,13 +40,21 @@ const PageBySlug = ({ page }: Props) => {
   );
 };
 
-export default PageBySlug;
+export default PageWithSlug;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const apolloClient = initializeApollo();
 
   const { data } = await apolloClient.query<Pages>({
-    query: GET_PAGES,
+    query: gql`
+      query GetPages {
+        pageCollection(limit: 100) {
+          items {
+            slug
+          }
+        }
+      }
+    `,
   });
 
   const paths = data.pageCollection.items.map(({ slug }) => ({

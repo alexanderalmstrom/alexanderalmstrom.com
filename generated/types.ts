@@ -32,10 +32,10 @@ export type Query = {
   assetCollection?: Maybe<AssetCollection>;
   project?: Maybe<Project>;
   projectCollection?: Maybe<ProjectCollection>;
-  media?: Maybe<Media>;
-  mediaCollection?: Maybe<MediaCollection>;
   page?: Maybe<Page>;
   pageCollection?: Maybe<PageCollection>;
+  media?: Maybe<Media>;
+  mediaCollection?: Maybe<MediaCollection>;
   block?: Maybe<Block>;
   blockCollection?: Maybe<BlockCollection>;
   text?: Maybe<Text>;
@@ -77,23 +77,6 @@ export type QueryProjectCollectionArgs = {
 };
 
 
-export type QueryMediaArgs = {
-  id: Scalars['String'];
-  preview?: Maybe<Scalars['Boolean']>;
-  locale?: Maybe<Scalars['String']>;
-};
-
-
-export type QueryMediaCollectionArgs = {
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-  preview?: Maybe<Scalars['Boolean']>;
-  locale?: Maybe<Scalars['String']>;
-  where?: Maybe<MediaFilter>;
-  order?: Maybe<Array<Maybe<MediaOrder>>>;
-};
-
-
 export type QueryPageArgs = {
   id: Scalars['String'];
   preview?: Maybe<Scalars['Boolean']>;
@@ -108,6 +91,23 @@ export type QueryPageCollectionArgs = {
   locale?: Maybe<Scalars['String']>;
   where?: Maybe<PageFilter>;
   order?: Maybe<Array<Maybe<PageOrder>>>;
+};
+
+
+export type QueryMediaArgs = {
+  id: Scalars['String'];
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryMediaCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+  where?: Maybe<MediaFilter>;
+  order?: Maybe<Array<Maybe<MediaOrder>>>;
 };
 
 
@@ -283,8 +283,8 @@ export type AssetLinkingCollections = {
   __typename?: 'AssetLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
   projectCollection?: Maybe<ProjectCollection>;
-  mediaCollection?: Maybe<MediaCollection>;
   pageCollection?: Maybe<PageCollection>;
+  mediaCollection?: Maybe<MediaCollection>;
 };
 
 
@@ -304,7 +304,7 @@ export type AssetLinkingCollectionsProjectCollectionArgs = {
 };
 
 
-export type AssetLinkingCollectionsMediaCollectionArgs = {
+export type AssetLinkingCollectionsPageCollectionArgs = {
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
   preview?: Maybe<Scalars['Boolean']>;
@@ -312,7 +312,7 @@ export type AssetLinkingCollectionsMediaCollectionArgs = {
 };
 
 
-export type AssetLinkingCollectionsPageCollectionArgs = {
+export type AssetLinkingCollectionsMediaCollectionArgs = {
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
   preview?: Maybe<Scalars['Boolean']>;
@@ -913,44 +913,6 @@ export enum ProjectOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
-export type MediaFilter = {
-  sys?: Maybe<SysFilter>;
-  name_exists?: Maybe<Scalars['Boolean']>;
-  name?: Maybe<Scalars['String']>;
-  name_not?: Maybe<Scalars['String']>;
-  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  name_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  name_contains?: Maybe<Scalars['String']>;
-  name_not_contains?: Maybe<Scalars['String']>;
-  mediaCollection_exists?: Maybe<Scalars['Boolean']>;
-  size_exists?: Maybe<Scalars['Boolean']>;
-  size?: Maybe<Scalars['Int']>;
-  size_not?: Maybe<Scalars['Int']>;
-  size_in?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  size_not_in?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  size_gt?: Maybe<Scalars['Int']>;
-  size_gte?: Maybe<Scalars['Int']>;
-  size_lt?: Maybe<Scalars['Int']>;
-  size_lte?: Maybe<Scalars['Int']>;
-  OR?: Maybe<Array<Maybe<MediaFilter>>>;
-  AND?: Maybe<Array<Maybe<MediaFilter>>>;
-};
-
-export enum MediaOrder {
-  NameAsc = 'name_ASC',
-  NameDesc = 'name_DESC',
-  SizeAsc = 'size_ASC',
-  SizeDesc = 'size_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
-}
-
 export type PageFilter = {
   sys?: Maybe<SysFilter>;
   name_exists?: Maybe<Scalars['Boolean']>;
@@ -1001,6 +963,44 @@ export enum PageOrder {
   SlugDesc = 'slug_DESC',
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
+export type MediaFilter = {
+  sys?: Maybe<SysFilter>;
+  name_exists?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  name_not?: Maybe<Scalars['String']>;
+  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  name_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  name_contains?: Maybe<Scalars['String']>;
+  name_not_contains?: Maybe<Scalars['String']>;
+  mediaCollection_exists?: Maybe<Scalars['Boolean']>;
+  size_exists?: Maybe<Scalars['Boolean']>;
+  size?: Maybe<Scalars['Int']>;
+  size_not?: Maybe<Scalars['Int']>;
+  size_in?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  size_not_in?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  size_gt?: Maybe<Scalars['Int']>;
+  size_gte?: Maybe<Scalars['Int']>;
+  size_lt?: Maybe<Scalars['Int']>;
+  size_lte?: Maybe<Scalars['Int']>;
+  OR?: Maybe<Array<Maybe<MediaFilter>>>;
+  AND?: Maybe<Array<Maybe<MediaFilter>>>;
+};
+
+export enum MediaOrder {
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  SizeAsc = 'size_ASC',
+  SizeDesc = 'size_DESC',
   SysIdAsc = 'sys_id_ASC',
   SysIdDesc = 'sys_id_DESC',
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
@@ -1149,20 +1149,6 @@ export type PageFragment = (
   )> }
 );
 
-export type GetPagesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetPagesQuery = (
-  { __typename?: 'Query' }
-  & { pageCollection?: Maybe<(
-    { __typename?: 'PageCollection' }
-    & { items: Array<Maybe<(
-      { __typename?: 'Page' }
-      & PageFragment
-    )>> }
-  )> }
-);
-
 export type GetPageQueryVariables = Exact<{
   slug: Scalars['String'];
 }>;
@@ -1206,7 +1192,14 @@ export type GetProjectsQuery = (
     { __typename?: 'ProjectCollection' }
     & { items: Array<Maybe<(
       { __typename?: 'Project' }
-      & ProjectFragment
+      & Pick<Project, 'name' | 'slug' | 'title' | 'description' | 'text'>
+      & { sys: (
+        { __typename?: 'Sys' }
+        & Pick<Sys, 'id'>
+      ), image?: Maybe<(
+        { __typename?: 'Asset' }
+        & AssetFragment
+      )> }
     )>> }
   )> }
 );
@@ -1297,7 +1290,7 @@ export const PageFragmentDoc = gql`
   image {
     ...Asset
   }
-  blocksCollection(limit: 10) {
+  blocksCollection(limit: 20) {
     items {
       ...Blocks
     }
@@ -1318,7 +1311,7 @@ export const ProjectFragmentDoc = gql`
   image {
     ...Asset
   }
-  blocksCollection(limit: 10) {
+  blocksCollection(limit: 20) {
     items {
       ...Blocks
     }
@@ -1326,43 +1319,9 @@ export const ProjectFragmentDoc = gql`
 }
     ${AssetFragmentDoc}
 ${BlocksFragmentDoc}`;
-export const GetPagesDocument = gql`
-    query GetPages {
-  pageCollection {
-    items {
-      ...Page
-    }
-  }
-}
-    ${PageFragmentDoc}`;
-
-/**
- * __useGetPagesQuery__
- *
- * To run a query within a React component, call `useGetPagesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPagesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetPagesQuery(baseOptions?: Apollo.QueryHookOptions<GetPagesQuery, GetPagesQueryVariables>) {
-        return Apollo.useQuery<GetPagesQuery, GetPagesQueryVariables>(GetPagesDocument, baseOptions);
-      }
-export function useGetPagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPagesQuery, GetPagesQueryVariables>) {
-          return Apollo.useLazyQuery<GetPagesQuery, GetPagesQueryVariables>(GetPagesDocument, baseOptions);
-        }
-export type GetPagesQueryHookResult = ReturnType<typeof useGetPagesQuery>;
-export type GetPagesLazyQueryHookResult = ReturnType<typeof useGetPagesLazyQuery>;
-export type GetPagesQueryResult = Apollo.QueryResult<GetPagesQuery, GetPagesQueryVariables>;
 export const GetPageDocument = gql`
     query GetPage($slug: String!) {
-  pageCollection(where: {slug: $slug}) {
+  pageCollection(limit: 1, where: {slug: $slug}) {
     items {
       ...Page
     }
@@ -1397,13 +1356,23 @@ export type GetPageLazyQueryHookResult = ReturnType<typeof useGetPageLazyQuery>;
 export type GetPageQueryResult = Apollo.QueryResult<GetPageQuery, GetPageQueryVariables>;
 export const GetProjectsDocument = gql`
     query GetProjects {
-  projectCollection {
+  projectCollection(limit: 50) {
     items {
-      ...Project
+      sys {
+        id
+      }
+      name
+      slug
+      title
+      description
+      text
+      image {
+        ...Asset
+      }
     }
   }
 }
-    ${ProjectFragmentDoc}`;
+    ${AssetFragmentDoc}`;
 
 /**
  * __useGetProjectsQuery__
@@ -1431,7 +1400,7 @@ export type GetProjectsLazyQueryHookResult = ReturnType<typeof useGetProjectsLaz
 export type GetProjectsQueryResult = Apollo.QueryResult<GetProjectsQuery, GetProjectsQueryVariables>;
 export const GetProjectDocument = gql`
     query GetProject($slug: String!) {
-  projectCollection(where: {slug: $slug}) {
+  projectCollection(limit: 1, where: {slug: $slug}) {
     items {
       ...Project
     }
