@@ -1,9 +1,13 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { GraphQLClient } from 'graphql-request';
+import { useQuery, UseQueryOptions } from 'react-query';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+
+function fetcher<TData, TVariables>(client: GraphQLClient, query: string, variables?: TVariables) {
+  return async (): Promise<TData> => client.request<TData, TVariables>(query, variables);
+}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -808,26 +812,32 @@ export type SysFilter = {
   id_contains?: Maybe<Scalars['String']>;
   id_not_contains?: Maybe<Scalars['String']>;
   publishedAt_exists?: Maybe<Scalars['Boolean']>;
-  publishedAt?: Maybe<Scalars['String']>;
-  publishedAt_not?: Maybe<Scalars['String']>;
-  publishedAt_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  publishedAt_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  publishedAt_contains?: Maybe<Scalars['String']>;
-  publishedAt_not_contains?: Maybe<Scalars['String']>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  publishedAt_not?: Maybe<Scalars['DateTime']>;
+  publishedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
+  publishedAt_not_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
+  publishedAt_gt?: Maybe<Scalars['DateTime']>;
+  publishedAt_gte?: Maybe<Scalars['DateTime']>;
+  publishedAt_lt?: Maybe<Scalars['DateTime']>;
+  publishedAt_lte?: Maybe<Scalars['DateTime']>;
   firstPublishedAt_exists?: Maybe<Scalars['Boolean']>;
-  firstPublishedAt?: Maybe<Scalars['String']>;
-  firstPublishedAt_not?: Maybe<Scalars['String']>;
-  firstPublishedAt_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  firstPublishedAt_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  firstPublishedAt_contains?: Maybe<Scalars['String']>;
-  firstPublishedAt_not_contains?: Maybe<Scalars['String']>;
+  firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  firstPublishedAt_not?: Maybe<Scalars['DateTime']>;
+  firstPublishedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
+  firstPublishedAt_not_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
+  firstPublishedAt_gt?: Maybe<Scalars['DateTime']>;
+  firstPublishedAt_gte?: Maybe<Scalars['DateTime']>;
+  firstPublishedAt_lt?: Maybe<Scalars['DateTime']>;
+  firstPublishedAt_lte?: Maybe<Scalars['DateTime']>;
   publishedVersion_exists?: Maybe<Scalars['Boolean']>;
-  publishedVersion?: Maybe<Scalars['String']>;
-  publishedVersion_not?: Maybe<Scalars['String']>;
-  publishedVersion_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  publishedVersion_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  publishedVersion_contains?: Maybe<Scalars['String']>;
-  publishedVersion_not_contains?: Maybe<Scalars['String']>;
+  publishedVersion?: Maybe<Scalars['Float']>;
+  publishedVersion_not?: Maybe<Scalars['Float']>;
+  publishedVersion_in?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  publishedVersion_not_in?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  publishedVersion_gt?: Maybe<Scalars['Float']>;
+  publishedVersion_gte?: Maybe<Scalars['Float']>;
+  publishedVersion_lt?: Maybe<Scalars['Float']>;
+  publishedVersion_lte?: Maybe<Scalars['Float']>;
 };
 
 export enum AssetOrder {
@@ -1090,15 +1100,6 @@ export type TextCollection = {
   items: Array<Maybe<Text>>;
 };
 
-export type AssetFragment = (
-  { __typename?: 'Asset' }
-  & Pick<Asset, 'url' | 'title' | 'contentType' | 'width' | 'height'>
-  & { sys: (
-    { __typename?: 'Sys' }
-    & Pick<Sys, 'id'>
-  ) }
-);
-
 export type BlocksFragment = (
   { __typename?: 'Block' }
   & { sys: (
@@ -1107,10 +1108,10 @@ export type BlocksFragment = (
   ), componentsCollection?: Maybe<(
     { __typename?: 'BlockComponentsCollection' }
     & { items: Array<Maybe<(
-      { __typename?: 'Media' }
+      { __typename: 'Media' }
       & MediaFragment
     ) | (
-      { __typename?: 'Text' }
+      { __typename: 'Text' }
       & TextFragment
     )>> }
   )> }
@@ -1126,7 +1127,11 @@ export type MediaFragment = (
     { __typename?: 'AssetCollection' }
     & { items: Array<Maybe<(
       { __typename?: 'Asset' }
-      & AssetFragment
+      & Pick<Asset, 'url' | 'title' | 'contentType' | 'width' | 'height'>
+      & { sys: (
+        { __typename?: 'Sys' }
+        & Pick<Sys, 'id'>
+      ) }
     )>> }
   )> }
 );
@@ -1139,7 +1144,11 @@ export type PageFragment = (
     & Pick<Sys, 'id'>
   ), image?: Maybe<(
     { __typename?: 'Asset' }
-    & AssetFragment
+    & Pick<Asset, 'url' | 'title' | 'contentType' | 'width' | 'height'>
+    & { sys: (
+      { __typename?: 'Sys' }
+      & Pick<Sys, 'id'>
+    ) }
   )>, blocksCollection?: Maybe<(
     { __typename?: 'PageBlocksCollection' }
     & { items: Array<Maybe<(
@@ -1173,7 +1182,11 @@ export type ProjectFragment = (
     & Pick<Sys, 'id'>
   ), image?: Maybe<(
     { __typename?: 'Asset' }
-    & AssetFragment
+    & Pick<Asset, 'url' | 'title' | 'contentType' | 'width' | 'height'>
+    & { sys: (
+      { __typename?: 'Sys' }
+      & Pick<Sys, 'id'>
+    ) }
   )>, blocksCollection?: Maybe<(
     { __typename?: 'ProjectBlocksCollection' }
     & { items: Array<Maybe<(
@@ -1198,7 +1211,11 @@ export type GetProjectsQuery = (
         & Pick<Sys, 'id'>
       ), image?: Maybe<(
         { __typename?: 'Asset' }
-        & AssetFragment
+        & Pick<Asset, 'url' | 'title' | 'contentType' | 'width' | 'height'>
+        & { sys: (
+          { __typename?: 'Sys' }
+          & Pick<Sys, 'id'>
+        ) }
       )> }
     )>> }
   )> }
@@ -1229,19 +1246,7 @@ export type TextFragment = (
   ) }
 );
 
-export const AssetFragmentDoc = gql`
-    fragment Asset on Asset {
-  sys {
-    id
-  }
-  url
-  title
-  contentType
-  width
-  height
-}
-    `;
-export const TextFragmentDoc = gql`
+export const TextFragmentDoc = `
     fragment Text on Text {
   sys {
     id
@@ -1250,7 +1255,7 @@ export const TextFragmentDoc = gql`
   size
 }
     `;
-export const MediaFragmentDoc = gql`
+export const MediaFragmentDoc = `
     fragment Media on Media {
   sys {
     id
@@ -1258,18 +1263,28 @@ export const MediaFragmentDoc = gql`
   size
   mediaCollection(limit: 2) {
     items {
-      ...Asset
+      ... on Asset {
+        sys {
+          id
+        }
+        url
+        title
+        contentType
+        width
+        height
+      }
     }
   }
 }
-    ${AssetFragmentDoc}`;
-export const BlocksFragmentDoc = gql`
+    `;
+export const BlocksFragmentDoc = `
     fragment Blocks on Block {
   sys {
     id
   }
   componentsCollection(limit: 2) {
     items {
+      __typename
       ...Text
       ...Media
     }
@@ -1277,7 +1292,7 @@ export const BlocksFragmentDoc = gql`
 }
     ${TextFragmentDoc}
 ${MediaFragmentDoc}`;
-export const PageFragmentDoc = gql`
+export const PageFragmentDoc = `
     fragment Page on Page {
   sys {
     id
@@ -1288,7 +1303,16 @@ export const PageFragmentDoc = gql`
   description
   text
   image {
-    ...Asset
+    ... on Asset {
+      sys {
+        id
+      }
+      url
+      title
+      contentType
+      width
+      height
+    }
   }
   blocksCollection(limit: 20) {
     items {
@@ -1296,9 +1320,8 @@ export const PageFragmentDoc = gql`
     }
   }
 }
-    ${AssetFragmentDoc}
-${BlocksFragmentDoc}`;
-export const ProjectFragmentDoc = gql`
+    ${BlocksFragmentDoc}`;
+export const ProjectFragmentDoc = `
     fragment Project on Project {
   sys {
     id
@@ -1309,7 +1332,16 @@ export const ProjectFragmentDoc = gql`
   description
   text
   image {
-    ...Asset
+    ... on Asset {
+      sys {
+        id
+      }
+      url
+      title
+      contentType
+      width
+      height
+    }
   }
   blocksCollection(limit: 20) {
     items {
@@ -1317,9 +1349,8 @@ export const ProjectFragmentDoc = gql`
     }
   }
 }
-    ${AssetFragmentDoc}
-${BlocksFragmentDoc}`;
-export const GetPageDocument = gql`
+    ${BlocksFragmentDoc}`;
+export const GetPageDocument = `
     query GetPage($slug: String!) {
   pageCollection(limit: 1, where: {slug: $slug}) {
     items {
@@ -1328,33 +1359,20 @@ export const GetPageDocument = gql`
   }
 }
     ${PageFragmentDoc}`;
-
-/**
- * __useGetPageQuery__
- *
- * To run a query within a React component, call `useGetPageQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPageQuery({
- *   variables: {
- *      slug: // value for 'slug'
- *   },
- * });
- */
-export function useGetPageQuery(baseOptions: Apollo.QueryHookOptions<GetPageQuery, GetPageQueryVariables>) {
-        return Apollo.useQuery<GetPageQuery, GetPageQueryVariables>(GetPageDocument, baseOptions);
-      }
-export function useGetPageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPageQuery, GetPageQueryVariables>) {
-          return Apollo.useLazyQuery<GetPageQuery, GetPageQueryVariables>(GetPageDocument, baseOptions);
-        }
-export type GetPageQueryHookResult = ReturnType<typeof useGetPageQuery>;
-export type GetPageLazyQueryHookResult = ReturnType<typeof useGetPageLazyQuery>;
-export type GetPageQueryResult = Apollo.QueryResult<GetPageQuery, GetPageQueryVariables>;
-export const GetProjectsDocument = gql`
+export const useGetPageQuery = <
+      TData = GetPageQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient, 
+      variables: GetPageQueryVariables, 
+      options?: UseQueryOptions<GetPageQuery, TError, TData>
+    ) => 
+    useQuery<GetPageQuery, TError, TData>(
+      ['GetPage', variables],
+      fetcher<GetPageQuery, GetPageQueryVariables>(client, GetPageDocument, variables),
+      options
+    );
+export const GetProjectsDocument = `
     query GetProjects {
   projectCollection(limit: 50) {
     items {
@@ -1367,38 +1385,35 @@ export const GetProjectsDocument = gql`
       description
       text
       image {
-        ...Asset
+        ... on Asset {
+          sys {
+            id
+          }
+          url
+          title
+          contentType
+          width
+          height
+        }
       }
     }
   }
 }
-    ${AssetFragmentDoc}`;
-
-/**
- * __useGetProjectsQuery__
- *
- * To run a query within a React component, call `useGetProjectsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetProjectsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetProjectsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetProjectsQuery(baseOptions?: Apollo.QueryHookOptions<GetProjectsQuery, GetProjectsQueryVariables>) {
-        return Apollo.useQuery<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, baseOptions);
-      }
-export function useGetProjectsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProjectsQuery, GetProjectsQueryVariables>) {
-          return Apollo.useLazyQuery<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, baseOptions);
-        }
-export type GetProjectsQueryHookResult = ReturnType<typeof useGetProjectsQuery>;
-export type GetProjectsLazyQueryHookResult = ReturnType<typeof useGetProjectsLazyQuery>;
-export type GetProjectsQueryResult = Apollo.QueryResult<GetProjectsQuery, GetProjectsQueryVariables>;
-export const GetProjectDocument = gql`
+    `;
+export const useGetProjectsQuery = <
+      TData = GetProjectsQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient, 
+      variables?: GetProjectsQueryVariables, 
+      options?: UseQueryOptions<GetProjectsQuery, TError, TData>
+    ) => 
+    useQuery<GetProjectsQuery, TError, TData>(
+      ['GetProjects', variables],
+      fetcher<GetProjectsQuery, GetProjectsQueryVariables>(client, GetProjectsDocument, variables),
+      options
+    );
+export const GetProjectDocument = `
     query GetProject($slug: String!) {
   projectCollection(limit: 1, where: {slug: $slug}) {
     items {
@@ -1407,29 +1422,16 @@ export const GetProjectDocument = gql`
   }
 }
     ${ProjectFragmentDoc}`;
-
-/**
- * __useGetProjectQuery__
- *
- * To run a query within a React component, call `useGetProjectQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetProjectQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetProjectQuery({
- *   variables: {
- *      slug: // value for 'slug'
- *   },
- * });
- */
-export function useGetProjectQuery(baseOptions: Apollo.QueryHookOptions<GetProjectQuery, GetProjectQueryVariables>) {
-        return Apollo.useQuery<GetProjectQuery, GetProjectQueryVariables>(GetProjectDocument, baseOptions);
-      }
-export function useGetProjectLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProjectQuery, GetProjectQueryVariables>) {
-          return Apollo.useLazyQuery<GetProjectQuery, GetProjectQueryVariables>(GetProjectDocument, baseOptions);
-        }
-export type GetProjectQueryHookResult = ReturnType<typeof useGetProjectQuery>;
-export type GetProjectLazyQueryHookResult = ReturnType<typeof useGetProjectLazyQuery>;
-export type GetProjectQueryResult = Apollo.QueryResult<GetProjectQuery, GetProjectQueryVariables>;
+export const useGetProjectQuery = <
+      TData = GetProjectQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient, 
+      variables: GetProjectQueryVariables, 
+      options?: UseQueryOptions<GetProjectQuery, TError, TData>
+    ) => 
+    useQuery<GetProjectQuery, TError, TData>(
+      ['GetProject', variables],
+      fetcher<GetProjectQuery, GetProjectQueryVariables>(client, GetProjectDocument, variables),
+      options
+    );

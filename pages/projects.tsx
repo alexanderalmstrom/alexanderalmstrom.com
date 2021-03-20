@@ -1,16 +1,16 @@
+import styles from "@styles/pages/Projects.module.scss";
 import { GetStaticProps } from "next";
 import Link from "next/link";
-import styles from "@styles/pages/Projects.module.scss";
-import { Projects } from "@interfaces/projects";
-import { addApolloState, initializeApollo } from "@lib/apolloClient";
+import { client } from "@lib/client";
+import { GetProjectsQuery, ProjectCollection } from "@generated/types";
 import { GET_PROJECTS } from "@graphql/projects";
 import Layout from "@components/Layout";
 
 interface Props {
-  projects: Projects;
+  projectCollection: ProjectCollection;
 }
 
-const PageProjects = ({ projects }: Props) => {
+export default function ProjectsPage({ projectCollection }: Props) {
   return (
     <Layout title="Projects">
       <article className={styles.root}>
@@ -18,7 +18,7 @@ const PageProjects = ({ projects }: Props) => {
           <h1 className={styles.title}>Projects</h1>
         </header>
         <div className={styles.projects}>
-          {projects.projectCollection.items.map((project) => (
+          {projectCollection.items.map((project) => (
             <Link key={project.sys.id} href={`/project/${project.slug}`}>
               <a>
                 {project.image && (
@@ -36,21 +36,17 @@ const PageProjects = ({ projects }: Props) => {
       </article>
     </Layout>
   );
-};
-
-export default PageProjects;
+}
 
 export const getStaticProps: GetStaticProps = async () => {
-  const apolloClient = initializeApollo();
+  const { projectCollection } = await client.request<GetProjectsQuery>(
+    GET_PROJECTS
+  );
 
-  const { data: projects } = await apolloClient.query<Projects>({
-    query: GET_PROJECTS,
-  });
-
-  return addApolloState(apolloClient, {
+  return {
     props: {
-      projects,
+      projectCollection,
     },
-    revalidate: true,
-  });
+    revalidate: 1,
+  };
 };

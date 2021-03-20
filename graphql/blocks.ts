@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from "graphql-request";
 import { Media } from "./media";
 import { Text } from "./text";
 
@@ -9,6 +9,7 @@ export const Blocks = gql`
     }
     componentsCollection(limit: 2) {
       items {
+        __typename
         ...Text
         ...Media
       }

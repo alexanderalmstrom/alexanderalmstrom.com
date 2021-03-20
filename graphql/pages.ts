@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from "graphql-request";
 import { Page } from "./page";
 
 export const GET_PAGE = gql`

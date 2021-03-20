@@ -1,15 +1,17 @@
 overwrite: true
 schema:
-  - "https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE_ID}":
+  - "https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE}":
       headers:
-        Authorization: Bearer ${CONTENTFUL_ACCESS_TOKEN}
+        Authorization: Bearer ${CONTENTFUL_TOKEN}
 documents: "graphql/**/*.ts"
 generates:
   generated/types.ts:
     plugins:
       - "typescript"
       - "typescript-operations"
-      - "typescript-react-apollo"
+      - "typescript-react-query"
+    config:
+      fetcher: "graphql-request"
   ./graphql.schema.json:
     plugins:
       - "introspection"

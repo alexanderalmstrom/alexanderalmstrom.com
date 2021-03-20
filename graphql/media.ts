@@ -1,5 +1,4 @@
-import { gql } from "@apollo/client";
-import { Asset } from "./asset";
+import { gql } from "graphql-request";
 
 export const Media = gql`
   fragment Media on Media {
@@ -9,10 +8,17 @@ export const Media = gql`
     size
     mediaCollection(limit: 2) {
       items {
-        ...Asset
+        ... on Asset {
+          sys {
+            id
+          }
+          url
+          title
+          contentType
+          width
+          height
+        }
       }
     }
   }
-
-  ${Asset}
 `;

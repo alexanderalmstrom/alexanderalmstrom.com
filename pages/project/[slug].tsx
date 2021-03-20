@@ -1,19 +1,18 @@
 import styles from "@styles/pages/Project.module.scss";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { gql } from "@apollo/client";
+import { gql } from "graphql-request";
 import ReactMarkdown from "react-markdown";
-import { Project } from "@generated/types";
-import { Projects } from "@interfaces/projects";
-import { addApolloState, initializeApollo } from "@lib/apolloClient";
+import { GetProjectQuery, GetProjectsQuery, Project } from "@generated/types";
 import { GET_PROJECT } from "@graphql/projects";
 import Layout from "@components/Layout";
 import Block from "@components/Block";
+import { client } from "@lib/client";
 
 interface Props {
   project: Project;
 }
 
-const ProjectWithSlug = ({ project }: Props) => {
+export default function ProjectPage({ project }: Props) {
   return (
     <Layout
       title={project.title || project.name}
@@ -32,26 +31,22 @@ const ProjectWithSlug = ({ project }: Props) => {
       </article>
     </Layout>
   );
-};
-
-export default ProjectWithSlug;
+}
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const apolloClient = initializeApollo();
-
-  const { data } = await apolloClient.query<Projects>({
-    query: gql`
-      query BuildProjects {
+  const { projectCollection } = await client.request<GetProjectQuery>(
+    gql`
+      query Projects {
         projectCollection(limit: 100) {
           items {
             slug
           }
         }
       }
-    `,
-  });
+    `
+  );
 
-  const paths = data.projectCollection.items.map(({ slug }) => ({
+  const paths = projectCollection.items.map(({ slug }) => ({
     params: { slug },
   }));
 
@@ -62,21 +57,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const apolloClient = initializeApollo();
-
-  const { data } = await apolloClient.query<Projects>({
-    query: GET_PROJECT,
-    variables: {
+  const { projectCollection } = await client.request<GetProjectsQuery>(
+    GET_PROJECT,
+    {
       slug: params.slug,
-    },
-  });
+    }
+  );
 
-  const project = data.projectCollection.items[0];
-
-  return addApolloState(apolloClient, {
+  return {
     props: {
-      project,
+      project: projectCollection.items[0],
     },
-    revalidate: true,
-  });
+    revalidate: 1,
+  };
 };

@@ -1,17 +1,21 @@
-import { AppProps } from "next/app";
-import { ApolloProvider } from "@apollo/client";
-import { useApollo } from "@lib/apolloClient";
-
 import "@styles/index.scss";
+import { AppProps } from "next/app";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
-function App({ Component, pageProps }: AppProps) {
-  const client = useApollo(pageProps);
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ApolloProvider client={client}>
+    <QueryClientProvider client={queryClient}>
       <Component {...pageProps} />
-    </ApolloProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
-
-export default App;

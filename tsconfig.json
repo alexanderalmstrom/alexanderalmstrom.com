@@ -5,7 +5,6 @@
       "@generated/*": ["generated/*"],
       "@config/*": ["config/*"],
       "@lib/*": ["lib/*"],
-      "@interfaces/*": ["interfaces/*"],
       "@graphql/*": ["graphql/*"],
       "@styles/*": ["styles/*"],
       "@components/*": ["components/*"]

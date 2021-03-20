@@ -4,7 +4,7 @@ import styles from "./Layout.module.scss";
 import { title, description } from "@config/seo.json";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
-import useIntersectionObserver from "hooks/useIntersect";
+import { useInView } from "react-intersection-observer";
 
 interface Props {
   children: React.ReactNode;
@@ -15,12 +15,11 @@ interface Props {
 const buildThresholdArray = () => Array.from(Array(100).keys(), (i) => i / 100);
 
 const Layout = ({ children, ...props }: Props) => {
-  const footerRef = useRef<HTMLElement | null>(null);
-
-  const [isVisible, entry] = useIntersectionObserver({
-    elementRef: footerRef,
+  const { ref: footerRef, entry } = useInView({
     threshold: buildThresholdArray(),
   });
+
+  console.log(entry);
 
   return (
     <>

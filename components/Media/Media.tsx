@@ -2,19 +2,17 @@ import { useRef } from "react";
 import classNames from "classnames";
 import styles from "./Media.module.scss";
 import { Media } from "@generated/types";
-import useIntersectionObserver from "hooks/useIntersect";
+import { useInView } from "react-intersection-observer";
 
 const MediaComponent = ({ mediaCollection, size }: Media) => {
   const imgRef = useRef(null);
 
-  const [isVisible, entry] = useIntersectionObserver({
-    elementRef: imgRef,
+  const { ref, inView, entry } = useInView({
     threshold: 0.1,
   });
 
   if (
-    isVisible &&
-    entry.isIntersecting &&
+    inView &&
     entry.target instanceof HTMLElement &&
     !entry.target.classList.contains("is-loaded")
   ) {
@@ -35,7 +33,7 @@ const MediaComponent = ({ mediaCollection, size }: Media) => {
           case "image/jpeg":
             return (
               <img
-                ref={imgRef}
+                ref={ref}
                 key={media.sys.id}
                 className={styles.img}
                 src={`${media.url}?w=100`}

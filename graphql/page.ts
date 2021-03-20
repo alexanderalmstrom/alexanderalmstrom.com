@@ -1,5 +1,4 @@
-import { gql } from "@apollo/client";
-import { Asset } from "./asset";
+import { gql } from "graphql-request";
 import { Blocks } from "./blocks";
 
 export const Page = gql`
@@ -13,7 +12,16 @@ export const Page = gql`
     description
     text
     image {
-      ...Asset
+      ... on Asset {
+        sys {
+          id
+        }
+        url
+        title
+        contentType
+        width
+        height
+      }
     }
     blocksCollection(limit: 20) {
       items {
@@ -22,6 +30,5 @@ export const Page = gql`
     }
   }
 
-  ${Asset}
   ${Blocks}
 `;

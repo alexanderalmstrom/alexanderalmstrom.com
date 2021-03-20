@@ -1,5 +1,4 @@
-import { gql } from "@apollo/client";
-import { Asset } from "./asset";
+import { gql } from "graphql-request";
 import { Project } from "./project";
 
 export const GET_PROJECTS = gql`
@@ -15,13 +14,20 @@ export const GET_PROJECTS = gql`
         description
         text
         image {
-          ...Asset
+          ... on Asset {
+            sys {
+              id
+            }
+            url
+            title
+            contentType
+            width
+            height
+          }
         }
       }
     }
   }
-
-  ${Asset}
 `;
 
 export const GET_PROJECT = gql`

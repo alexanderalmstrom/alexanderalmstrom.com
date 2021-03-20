@@ -1,13 +1,12 @@
 import styles from "@styles/pages/Page.module.scss";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { gql } from "@apollo/client";
+import { gql } from "graphql-request";
 import ReactMarkdown from "react-markdown";
-import { Page } from "@generated/types";
-import { Pages } from "@interfaces/pages";
-import { addApolloState, initializeApollo } from "@lib/apolloClient";
+import { GetPageQuery, Page } from "@generated/types";
 import { GET_PAGE } from "@graphql/pages";
 import Layout from "@components/Layout";
 import Block from "@components/Block";
+import { client } from "@lib/client";
 
 interface Props {
   page: Page;
@@ -43,21 +42,19 @@ const PageWithSlug = ({ page }: Props) => {
 export default PageWithSlug;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const apolloClient = initializeApollo();
-
-  const { data } = await apolloClient.query<Pages>({
-    query: gql`
-      query GetPages {
+  const { pageCollection } = await client.request<GetPageQuery>(
+    gql`
+      query Pages {
         pageCollection(limit: 100) {
           items {
             slug
           }
         }
       }
-    `,
-  });
+    `
+  );
 
-  const paths = data.pageCollection.items.map(({ slug }) => ({
+  const paths = pageCollection.items.map(({ slug }) => ({
     params: { slug },
   }));
 
@@ -68,21 +65,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const apolloClient = initializeApollo();
-
-  const { data } = await apolloClient.query<Pages>({
-    query: GET_PAGE,
-    variables: {
-      slug: params.slug,
-    },
+  const { pageCollection } = await client.request<GetPageQuery>(GET_PAGE, {
+    slug: params.slug,
   });
 
-  const page = data.pageCollection.items[0];
-
-  return addApolloState(apolloClient, {
+  return {
     props: {
-      page,
+      page: pageCollection.items[0],
     },
-    revalidate: true,
-  });
+    revalidate: 1,
+  };
 };
