@@ -4,8 +4,6 @@ import styles from "./Text.module.scss";
 import { Text } from "@generated/types";
 
 const TextComponent = ({ text, size }: Text) => {
-  console.log(text);
-
   return (
     <div
       className={classNames(styles.root, {

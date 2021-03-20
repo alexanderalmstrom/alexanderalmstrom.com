@@ -19,8 +19,6 @@ const Layout = ({ children, ...props }: Props) => {
     threshold: buildThresholdArray(),
   });
 
-  console.log(entry);
-
   return (
     <>
       <Head>
