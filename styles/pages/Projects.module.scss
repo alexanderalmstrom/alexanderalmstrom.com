@@ -19,32 +19,38 @@
 .projects {
   @include block-spacing;
   @include container;
-  @include fluid-grid;
 
+  display: grid;
   gap: $grid-gutter;
 }
 
-.project {
-  overflow: hidden;
-  background-color: rgba(color("primary"), 1);
-  transition-property: background-color;
-  transition-duration: $transition-duration;
-  transition-timing-function: linear;
-
-  &:hover {
-    background-color: transparent;
+@include media(">=large") {
+  .projects {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  img {
-    opacity: 0.75;
-    transition-property: opacity, transform;
+  .project {
+    overflow: hidden;
+    background-color: rgba(color("primary"), 1);
+    transition-property: background-color;
     transition-duration: $transition-duration;
-    transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
+    transition-timing-function: linear;
 
-  &:hover img {
-    transform: scale(1.02);
-    opacity: 1;
-    transition-duration: $transition-duration--slow;
+    &:hover {
+      background-color: transparent;
+    }
+
+    img {
+      opacity: 0.75;
+      transition-property: opacity, transform;
+      transition-duration: $transition-duration;
+      transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    &:hover img {
+      transform: scale(1.02);
+      opacity: 1;
+      transition-duration: $transition-duration--slow;
+    }
   }
 }
