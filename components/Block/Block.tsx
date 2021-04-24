@@ -3,11 +3,11 @@ import { Block } from "@generated/types";
 import Text from "@components/Text";
 import Media from "@components/Media";
 
-interface Props {
+type BlockProps = {
   block: Block;
-}
+};
 
-const BlockComponent = ({ block }: Props) => {
+const BlockComponent = ({ block }: BlockProps) => {
   return (
     <section className={styles.root}>
       <div className={styles.container}>

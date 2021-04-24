@@ -12,6 +12,12 @@ $grid-width: 90rem;
 $grid-gutter: 1px;
 
 $colors: (
+  "bg": (
+    "base": #fafafa,
+  ),
+  "primary": (
+    "base": #3740ff,
+  ),
   "black": (
     "base": #111111,
   ),
@@ -22,9 +28,8 @@ $colors: (
 
 $spacings: (
   "xsmall": 10,
-  "small": 25,
-  "medium": 50,
-  "large": 100,
-  "xlarge": 150,
-  "xxlarge": 300,
+  "small": 20,
+  "medium": 40,
+  "large": 80,
+  "xlarge": 160,
 );

@@ -1,14 +1,14 @@
-import { forwardRef } from "react";
 import styles from "./Footer.module.scss";
-import WavePattern from "../../assets/wave-pattern.svg";
+import { forwardRef } from "react";
+import Waves from "../../assets/waves.svg";
 import { title, description } from "@config/seo.json";
 
-interface Props {}
+type FooterProps = {};
 
-const Footer = ({}: Props, ref) => {
+const Footer = ({}: FooterProps, ref) => {
   return (
     <footer className={styles.root} ref={ref}>
-      <WavePattern className={styles.wave} />
+      <Waves className={styles.waves} />
       <div className={styles.container}>
         <div className={styles.column}>
           <p className={styles.title}>{title}</p>

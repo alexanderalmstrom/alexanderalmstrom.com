@@ -1,9 +1,9 @@
+import styles from "./Text.module.scss";
 import classNames from "classnames";
 import ReactMarkdown from "react-markdown";
-import styles from "./Text.module.scss";
-import { Text } from "@generated/types";
+import { Text as TextProps } from "@generated/types";
 
-const TextComponent = ({ text, size }: Text) => {
+export default function Text({ text, size }: TextProps) {
   return (
     <div
       className={classNames(styles.root, {
@@ -13,6 +13,4 @@ const TextComponent = ({ text, size }: Text) => {
       <ReactMarkdown>{text}</ReactMarkdown>
     </div>
   );
-};
-
-export default TextComponent;
+}

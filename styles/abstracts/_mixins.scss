@@ -21,6 +21,11 @@
   max-width: $container-width;
   margin-left: auto;
   margin-right: auto;
+
+  @include media(">=medium") {
+    padding-left: spacing("medium");
+    padding-right: spacing("medium");
+  }
 }
 
 @mixin col($size, $gutter: $grid-gutter) {
@@ -51,10 +56,10 @@
 }
 
 @mixin block-spacing {
-  margin-top: spacing("medium");
+  margin-top: spacing("large");
 
   @include media(">=medium") {
-    margin-top: spacing("large");
+    margin-top: spacing("xlarge");
   }
 
   @include media(">=large") {
@@ -73,37 +78,37 @@
 }
 
 @mixin h1 {
-  @include fluid-type(40, 80, 375, $grid-width);
+  @include fluid-type(40, 120, 375, $grid-width);
 
   letter-spacing: -0.01em;
   line-height: 1.1;
 }
 
 @mixin h2 {
-  @include fluid-type(30, 50, 375, $grid-width);
+  @include fluid-type(30, 90, 375, $grid-width);
 
   letter-spacing: -0.01em;
 }
 
 @mixin h3 {
-  @include fluid-type(24, 30, 375, $grid-width);
+  @include fluid-type(24, 60, 375, $grid-width);
 
   letter-spacing: -0.01em;
 }
 
 @mixin h4 {
-  font-size: rem(20);
+  font-size: rem(24);
 
   @include media(">=medium") {
-    font-size: rem(24);
+    font-size: rem(28);
   }
 }
 
 @mixin h5 {
-  font-size: rem(18);
+  font-size: rem(20);
 
   @include media(">=medium") {
-    font-size: rem(20);
+    font-size: rem(24);
   }
 }
 

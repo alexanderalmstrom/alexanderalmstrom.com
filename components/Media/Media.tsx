@@ -1,12 +1,9 @@
-import { useRef } from "react";
-import classNames from "classnames";
 import styles from "./Media.module.scss";
-import { Media } from "@generated/types";
+import classNames from "classnames";
+import { Media as MediaProps } from "@generated/types";
 import { useInView } from "react-intersection-observer";
 
-const MediaComponent = ({ mediaCollection, size }: Media) => {
-  const imgRef = useRef(null);
-
+export default function Media({ mediaCollection, size }: MediaProps) {
   const { ref, inView, entry } = useInView({
     threshold: 0.1,
   });
@@ -59,6 +56,4 @@ const MediaComponent = ({ mediaCollection, size }: Media) => {
       })}
     </div>
   );
-};
-
-export default MediaComponent;
+}

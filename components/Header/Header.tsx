@@ -1,10 +1,10 @@
-import Link from "next/link";
 import styles from "./Header.module.scss";
-import Logo from "../../assets/logo-v2.svg";
+import Logo from "../../assets/logo.svg";
+import Link from "next/link";
 
-interface Props {}
+type HeaderProps = {};
 
-const Header = ({}: Props) => {
+export default function Header({}: HeaderProps) {
   return (
     <header className={styles.root}>
       <Link href="/">
@@ -22,6 +22,4 @@ const Header = ({}: Props) => {
       </nav>
     </header>
   );
-};
-
-export default Header;
+}

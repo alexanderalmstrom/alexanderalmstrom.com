@@ -1,20 +1,19 @@
-import Head from "next/head";
-import { useRef } from "react";
 import styles from "./Layout.module.scss";
+import Head from "next/head";
+import { useInView } from "react-intersection-observer";
 import { title, description } from "@config/seo.json";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
-import { useInView } from "react-intersection-observer";
 
-interface Props {
+type LayoutProps = {
   children: React.ReactNode;
   title?: string;
   description?: string;
-}
+};
 
 const buildThresholdArray = () => Array.from(Array(100).keys(), (i) => i / 100);
 
-const Layout = ({ children, ...props }: Props) => {
+export default function Layout({ children, ...props }: LayoutProps) {
   const { ref: footerRef, entry } = useInView({
     threshold: buildThresholdArray(),
   });
@@ -43,6 +42,4 @@ const Layout = ({ children, ...props }: Props) => {
       <Footer ref={footerRef} />
     </>
   );
-};
-
-export default Layout;
+}
