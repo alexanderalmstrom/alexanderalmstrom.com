@@ -20,7 +20,7 @@ export default function ProjectsPage({ projectCollection }: Props) {
         <div className={styles.projects}>
           {projectCollection.items.map((project) => (
             <Link key={project.sys.id} href={`/project/${project.slug}`}>
-              <a>
+              <a className={styles.project}>
                 {project.image && (
                   <img
                     src={`${project.image.url}?w=1280&q=75&fm=jpg&fl=progressive`}

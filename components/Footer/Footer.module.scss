@@ -22,6 +22,10 @@
   height: rem(6);
 }
 
+.waves path {
+  stroke: color("primary");
+}
+
 .title,
 .description,
 .email,

@@ -24,7 +24,7 @@ export default function HomePage({ projectCollection }: Props) {
         <div className={projectStyles.projects}>
           {projectCollection.items.map((project) => (
             <Link key={project.sys.id} href={`/project/${project.slug}`}>
-              <a>
+              <a className={projectStyles.project}>
                 {project.image && (
                   <img
                     src={`${project.image.url}?w=1280&q=75&fm=jpg&fl=progressive`}

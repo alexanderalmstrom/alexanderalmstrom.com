@@ -1,11 +1,11 @@
 @import "../abstracts";
 
 .root {
-  @include container;
   @include page-spacing;
 }
 
 .header {
+  @include container;
   @include block-spacing;
 
   padding-left: spacing("small");
