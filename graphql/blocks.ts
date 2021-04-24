@@ -7,7 +7,7 @@ export const Blocks = gql`
     sys {
       id
     }
-    componentsCollection(limit: 2) {
+    componentsCollection(limit: 4) {
       items {
         __typename
         ...Text

@@ -6,7 +6,7 @@ export const Media = gql`
       id
     }
     size
-    mediaCollection(limit: 2) {
+    mediaCollection(limit: 20) {
       items {
         ... on Asset {
           sys {

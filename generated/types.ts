@@ -44,6 +44,7 @@ export type Query = {
   blockCollection?: Maybe<BlockCollection>;
   text?: Maybe<Text>;
   textCollection?: Maybe<TextCollection>;
+  entryCollection?: Maybe<EntryCollection>;
 };
 
 
@@ -148,10 +149,21 @@ export type QueryTextCollectionArgs = {
   order?: Maybe<Array<Maybe<TextOrder>>>;
 };
 
+
+export type QueryEntryCollectionArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  preview?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']>;
+  where?: Maybe<EntryFilter>;
+  order?: Maybe<Array<Maybe<EntryOrder>>>;
+};
+
 /** Represents a binary file in a space. An asset can be any file type. */
 export type Asset = {
   __typename?: 'Asset';
   sys: Sys;
+  contentfulMetadata: ContentfulMetadata;
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   contentType?: Maybe<Scalars['String']>;
@@ -185,6 +197,21 @@ export type Sys = {
   publishedVersion?: Maybe<Scalars['Int']>;
 };
 
+
+export type ContentfulMetadata = {
+  __typename?: 'ContentfulMetadata';
+  tags: Array<Maybe<ContentfulTag>>;
+};
+
+/**
+ * Represents a tag entity for finding and organizing content easily.
+ *     Find out more here: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-tags
+ */
+export type ContentfulTag = {
+  __typename?: 'ContentfulTag';
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
 
 export type ImageTransformOptions = {
   /** Desired width in pixels. Defaults to the original image width. */
@@ -333,6 +360,7 @@ export type EntryCollection = {
 
 export type Entry = {
   sys: Sys;
+  contentfulMetadata: ContentfulMetadata;
 };
 
 export type ProjectCollection = {
@@ -347,6 +375,7 @@ export type ProjectCollection = {
 export type Project = Entry & {
   __typename?: 'Project';
   sys: Sys;
+  contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<ProjectLinkingCollections>;
   name?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
@@ -434,6 +463,7 @@ export type ProjectBlocksCollection = {
 export type Block = Entry & {
   __typename?: 'Block';
   sys: Sys;
+  contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<BlockLinkingCollections>;
   name?: Maybe<Scalars['String']>;
   componentsCollection?: Maybe<BlockComponentsCollection>;
@@ -503,6 +533,7 @@ export type PageCollection = {
 export type Page = Entry & {
   __typename?: 'Page';
   sys: Sys;
+  contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<PageLinkingCollections>;
   name?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
@@ -600,6 +631,7 @@ export type BlockComponentsItem = Media | Text;
 export type Media = Entry & {
   __typename?: 'Media';
   sys: Sys;
+  contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<MediaLinkingCollections>;
   name?: Maybe<Scalars['String']>;
   mediaCollection?: Maybe<AssetCollection>;
@@ -675,6 +707,7 @@ export type AssetCollection = {
 export type Text = Entry & {
   __typename?: 'Text';
   sys: Sys;
+  contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<TextLinkingCollections>;
   name?: Maybe<Scalars['String']>;
   text?: Maybe<Scalars['String']>;
@@ -737,6 +770,7 @@ export type MediaCollection = {
 
 export type AssetFilter = {
   sys?: Maybe<SysFilter>;
+  contentfulMetadata?: Maybe<ContentfulMetadataFilter>;
   title_exists?: Maybe<Scalars['Boolean']>;
   title?: Maybe<Scalars['String']>;
   title_not?: Maybe<Scalars['String']>;
@@ -840,6 +874,17 @@ export type SysFilter = {
   publishedVersion_lte?: Maybe<Scalars['Float']>;
 };
 
+export type ContentfulMetadataFilter = {
+  tags_exists?: Maybe<Scalars['Boolean']>;
+  tags?: Maybe<ContentfulMetadataTagsFilter>;
+};
+
+export type ContentfulMetadataTagsFilter = {
+  id_contains_all?: Maybe<Array<Maybe<Scalars['String']>>>;
+  id_contains_some?: Maybe<Array<Maybe<Scalars['String']>>>;
+  id_contains_none?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
 export enum AssetOrder {
   UrlAsc = 'url_ASC',
   UrlDesc = 'url_DESC',
@@ -865,6 +910,7 @@ export enum AssetOrder {
 
 export type ProjectFilter = {
   sys?: Maybe<SysFilter>;
+  contentfulMetadata?: Maybe<ContentfulMetadataFilter>;
   name_exists?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   name_not?: Maybe<Scalars['String']>;
@@ -925,6 +971,7 @@ export enum ProjectOrder {
 
 export type PageFilter = {
   sys?: Maybe<SysFilter>;
+  contentfulMetadata?: Maybe<ContentfulMetadataFilter>;
   name_exists?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   name_not?: Maybe<Scalars['String']>;
@@ -985,6 +1032,7 @@ export enum PageOrder {
 
 export type MediaFilter = {
   sys?: Maybe<SysFilter>;
+  contentfulMetadata?: Maybe<ContentfulMetadataFilter>;
   name_exists?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   name_not?: Maybe<Scalars['String']>;
@@ -1023,6 +1071,7 @@ export enum MediaOrder {
 
 export type BlockFilter = {
   sys?: Maybe<SysFilter>;
+  contentfulMetadata?: Maybe<ContentfulMetadataFilter>;
   name_exists?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   name_not?: Maybe<Scalars['String']>;
@@ -1050,6 +1099,7 @@ export enum BlockOrder {
 
 export type TextFilter = {
   sys?: Maybe<SysFilter>;
+  contentfulMetadata?: Maybe<ContentfulMetadataFilter>;
   name_exists?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   name_not?: Maybe<Scalars['String']>;
@@ -1099,6 +1149,24 @@ export type TextCollection = {
   limit: Scalars['Int'];
   items: Array<Maybe<Text>>;
 };
+
+export type EntryFilter = {
+  sys?: Maybe<SysFilter>;
+  contentfulMetadata?: Maybe<ContentfulMetadataFilter>;
+  OR?: Maybe<Array<Maybe<EntryFilter>>>;
+  AND?: Maybe<Array<Maybe<EntryFilter>>>;
+};
+
+export enum EntryOrder {
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export type BlocksFragment = (
   { __typename?: 'Block' }
@@ -1261,7 +1329,7 @@ export const MediaFragmentDoc = `
     id
   }
   size
-  mediaCollection(limit: 2) {
+  mediaCollection(limit: 20) {
     items {
       ... on Asset {
         sys {
@@ -1282,7 +1350,7 @@ export const BlocksFragmentDoc = `
   sys {
     id
   }
-  componentsCollection(limit: 2) {
+  componentsCollection(limit: 4) {
     items {
       __typename
       ...Text
