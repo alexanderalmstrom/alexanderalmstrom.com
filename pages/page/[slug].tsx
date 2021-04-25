@@ -26,7 +26,9 @@ const PageWithSlug = ({ page }: Props) => {
               />
             </div>
           )}
-          <h1 className={styles.title}>{page.name}</h1>
+          <h1 className={styles.title} data-text={page.name}>
+            {page.name}
+          </h1>
         </header>
         {page.text && (
           <ReactMarkdown className={styles.text}>{page.text}</ReactMarkdown>

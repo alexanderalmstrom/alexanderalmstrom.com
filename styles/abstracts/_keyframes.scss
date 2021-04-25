@@ -1,0 +1,53 @@
+@import "./config";
+
+@keyframes skew {
+  0% {
+    transform: none;
+  }
+
+  30% {
+    transform: none;
+  }
+
+  30.2% {
+    transform: skewX(50deg);
+  }
+
+  30.4% {
+    transform: skewX(-50deg);
+  }
+
+  31% {
+    transform: none;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    transform: none;
+    visibility: hidden;
+  }
+
+  30% {
+    transform: none;
+    visibility: hidden;
+  }
+
+  31% {
+    transform: translateX(-$glitch-offset);
+  }
+
+  33% {
+    transform: none;
+    visibility: hidden;
+  }
+
+  98% {
+    transform: none;
+    visibility: hidden;
+  }
+
+  100% {
+    transform: translateX($glitch-offset);
+  }
+}

@@ -20,7 +20,9 @@ export default function ProjectPage({ project }: Props) {
     >
       <article className={styles.root}>
         <header className={styles.header}>
-          <h1 className={styles.title}>{project.name}</h1>
+          <h1 className={styles.title} data-text={project.name}>
+            {project.name}
+          </h1>
         </header>
         {project.text && (
           <ReactMarkdown className={styles.text}>{project.text}</ReactMarkdown>

@@ -15,7 +15,9 @@ export default function ProjectsPage({ projectCollection }: Props) {
     <Layout title="Projects">
       <article className={styles.root}>
         <header className={styles.header}>
-          <h1 className={styles.title}>Projects</h1>
+          <h1 className={styles.title} data-text="Projects">
+            Projects
+          </h1>
         </header>
         <div className={styles.projects}>
           {projectCollection.items.map((project) => (

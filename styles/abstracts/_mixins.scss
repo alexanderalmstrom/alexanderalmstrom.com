@@ -123,3 +123,33 @@
     font-size: rem(20);
   }
 }
+
+@mixin glitch {
+  top: 0;
+  left: -$glitch-offset;
+  mix-blend-mode: screen;
+  position: relative;
+  white-space: nowrap;
+  animation: skew 2s infinite;
+
+  &:after,
+  &:before {
+    content: attr(data-text);
+    position: absolute;
+    mix-blend-mode: screen;
+  }
+
+  &:after {
+    top: 0;
+    left: $glitch-offset;
+    color: red;
+    animation: glitch 1.5s infinite;
+  }
+
+  &:before {
+    top: -0.4 * $glitch-offset;
+    left: 0.6 * $glitch-offset;
+    color: limegreen;
+    animation: glitch 1.5s infinite reverse;
+  }
+}

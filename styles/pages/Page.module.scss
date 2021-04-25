@@ -7,9 +7,10 @@
 .header {
   @include block-spacing;
 
+  display: flex;
+  justify-content: center;
   padding-left: spacing("small");
   padding-right: spacing("small");
-  text-align: center;
 }
 
 .image,
@@ -20,6 +21,12 @@
 
 .image {
   height: 100vh;
+}
+
+.title {
+  @include glitch;
+
+  margin-bottom: 0;
 }
 
 .img {
