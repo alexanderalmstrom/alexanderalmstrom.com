@@ -127,7 +127,6 @@
 @mixin glitch {
   top: 0;
   left: -$glitch-offset;
-  mix-blend-mode: screen;
   position: relative;
   white-space: nowrap;
   animation: skew 2s infinite;
